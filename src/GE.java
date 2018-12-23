@@ -4,6 +4,9 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 注意这里的颜色为aabbggrr
+ */
 public class GE {
     //存储每一个省的数据
     private Vector<Province> provinces = new Vector<>();
@@ -19,7 +22,7 @@ public class GE {
 
     //读取边界数据
     private void getBoundary() {
-        File file = new File("E:/work/not_use_1/GE/china.kml");
+        File file = new File("china.kml");
         String s, ss;
         Pattern pattern = Pattern.compile("<SimpleData name=\"NAME_1\">(.+?)</SimpleData>");
         Pattern pattern1 = Pattern.compile("<LinearRing><coordinates>(.+?)</coordinates></LinearRing>");
@@ -149,101 +152,109 @@ public class GE {
         return -1;
     }
 
-    /*
-    //对一个点写kml文件
-    private void write(double L1, double B1,double Ve,double Vn,String ID, BufferedWriter bufferedWriter) {
-        //另一端点处经度度增加值 1:100万 1度->111km
-        double signNum = (1000 * Math.PI) / (111 * 180);
-        //另一端点处 L B
-        double L2 = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180);
-        double B2 = B1 + Vn * signNum;
-        //所需两点的基点（过渡点）
-        double multi = 0.9;
-        double tempL = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180) * multi;
-        double tempB = B1 + Vn * signNum * multi;
-        //所需两点
-        double multi1 = 0.1;
-        double arrowL1 = tempL + signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
-        double arrowB1 = tempB - signNum * Ve * multi1;
-        double arrowL2 = tempL - signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
-        double arrowB2 = tempB + signNum * Ve * multi1;
-        try {
-            bufferedWriter.write("\t\t\t<Folder id=\"arrow\">\n" + "\t\t\t\t<name>" + ID + "</name>\n" +
-                    "\t\t\t\t<description>" + ID + "</description>\n");
-            //起点图标
-            bufferedWriter.write("\t\t\t\t<Placemark>\n" +
-                    "\t\t\t\t\t<Style id=\"point\">\n" +
-                    "\t\t\t\t\t\t<IconStyle>\n" +
-                    "\t\t\t\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n" +
-                    "\t\t\t\t\t\t\t</Icon>\n" +
-                    "\t\t\t\t\t\t</IconStyle>\n" +
-                    "\t\t\t\t\t</Style>\n" +
-                    "\t\t\t\t\t<Point>\n" +
-                    "\t\t\t\t\t\t<coordinates>\n");
-            bufferedWriter.write("\t\t\t\t\t\t" + Double.toString(L1) + "," + Double.toString(B1) +"\n");
-            bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
-                    "\t\t\t\t\t</Point>\n" +
-                    "\t\t\t\t</Placemark>\n");
-            //线段
-            bufferedWriter.write("\t\t\t\t<Placemark>\n" +
-                    "\t\t\t\t\t<Style id=\"arrow\">\n" +
-                    "\t\t\t\t\t\t<LineStyle>\n" +
-                    "\t\t\t\t\t\t\t<color>ff0000ff</color>\n" +
-                    "\t\t\t\t\t\t\t<width>0.5</width>\n" +
-                    "\t\t\t\t\t\t</LineStyle>\n" +
-                    "\t\t\t\t\t</Style>\n"  +
-                    "\t\t\t\t\t<LinearRing>\n" +
-                    "\t\t\t\t\t\t<coordinates>\n");
-            String line = "\t\t\t\t\t\t\t" + Double.toString(L1) + "," + Double.toString(B1) + " " +
-                    Double.toString(L2) + "," + Double.toString(B2) + "\n";
-            bufferedWriter.write(line);
-            bufferedWriter.write("\t\t\t\t</coordinates>\n" +
-                    "\t\t\t\t\t</LinearRing>\n" +
-                    "\t\t\t\t</Placemark>\n" +
-                    "\t\t\t\t<Placemark>\n" +
-                    "\t\t\t\t\t<Style id=\"arrow\">\n" +
-                    "\t\t\t\t\t\t<LineStyle>\n" +
-                    "\t\t\t\t\t\t\t<color>ff0000ff</color>\n" +
-                    "\t\t\t\t\t\t\t<width>0.5</width>\n" +
-                    "\t\t\t\t\t\t</LineStyle>\n" +
-                    "\t\t\t\t\t</Style>\n"  +
-                    "\t\t\t\t\t<LinearRing>\n" +
-                    "\t\t\t\t\t\t<coordinates>\n");
-            //箭头
-            String arrow = "\t\t\t\t\t\t\t" + Double.toString(arrowL1) + "," + Double.toString(arrowB1) + " " +
-                    Double.toString(L2) + "," + Double.toString(B2) + " " +
-                    Double.toString(arrowL2) + "," + Double.toString(arrowB2) + "\n";
-            bufferedWriter.write(arrow);
-            bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
-                    "\t\t\t\t\t</LinearRing>\n" +
-                    "\t\t\t\t</Placemark>\n");
-            bufferedWriter.write("\t\t\t</Folder>\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    */
-
-
-    private void write(double L1, double B1,double Ve,double Vn,String ID, BufferedWriter bufferedWriter) {
-        //另一端点处经度度增加值 1:100万 1度->111km
-        double signNum = (1000 * Math.PI) / (111 * 180);
-        //另一端点处 L B
-        double L2 = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180);
-        double B2 = B1 + Vn * signNum;
-        //所需两点的基点（过渡点）
-        double multi = 0.9;
-        double tempL = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180) * multi;
-        double tempB = B1 + Vn * signNum * multi;
-        //所需两点
-        double multi1 = 0.1;
-        double arrowL1 = tempL + signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
-        double arrowB1 = tempB - signNum * Ve * multi1;
-        double arrowL2 = tempL - signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
-        double arrowB2 = tempB + signNum * Ve * multi1;
+    private String oval(double L2,double B2,double sigVe,double sigVn,double signNum,String baseColor) {
         //误差椭圆
+        ArrayList<Point> ovalPoints = new ArrayList<>();
+        int NUM = 50;
+        //右上完整
+        double step = sigVe / NUM;
+        double current = -step;
+        for (int i = 0; i < NUM ; i++) {
+            current += step;
+            double currentX = current * signNum / Math.cos(B2 * Math.PI / 180);
+            double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe)) * signNum;
+            ovalPoints.add(new Point(currentX,currentY));
+        }
+        ovalPoints.add(new Point(sigVe * signNum / Math.cos(Math.PI * B2 / 180),0));
+        StringBuilder oval = new StringBuilder("\t\t\t\t<Placemark>\n" +
+                "\t\t\t\t\t<Style id=\"oval\">\n" +
+                "\t\t\t\t\t\t<LineStyle>\n" +
+                baseColor +
+                "\t\t\t\t\t\t\t<width>0.5</width>\n" +
+                "\t\t\t\t\t\t</LineStyle>\n" +
+                "\t\t\t\t\t\t<PolyStyle>\n" +
+                "\t\t\t\t\t\t\t<fill>0</fill>\n" +
+                "\t\t\t\t\t\t</PolyStyle>\n" +
+                "\t\t\t\t\t</Style>\n" +
+                "\t\t\t\t\t<Polygon>\n" +
+                "\t\t\t\t\t\t<outerBoundaryIs>\n" +
+                "\t\t\t\t\t\t\t<LinearRing>\n" +
+                "\t\t\t\t\t\t\t\t<coordinates>\n" +
+                "\t\t\t\t\t\t\t\t");
+        //右上
+        for (int i = 0; i < NUM; i++) {
+            oval.append(L2 + ovalPoints.get(i).x);
+            oval.append(',');
+            oval.append(B2 + ovalPoints.get(i).y);
+            oval.append(' ');
+        }
+        //右下
+        for (int i = NUM; i > 0; i--) {
+            oval.append(L2 + ovalPoints.get(i).x);
+            oval.append(',');
+            oval.append(B2 - ovalPoints.get(i).y);
+            oval.append(' ');
+        }
+        //左下
+        for (int i = 0; i < NUM; i++) {
+            oval.append(L2 - ovalPoints.get(i).x);
+            oval.append(',');
+            oval.append(B2 - ovalPoints.get(i).y);
+            oval.append(' ');
+        }
+        //左上
+        for (int i = NUM; i >= 0; i--) {
+            oval.append(L2 - ovalPoints.get(i).x);
+            oval.append(',');
+            oval.append(B2 + ovalPoints.get(i).y);
+            oval.append(' ');
+        }
+        oval.append("\n\t\t\t\t\t\t\t\t</coordinates>\n" +
+                "\t\t\t\t\t\t\t</LinearRing>\n" +
+                "\t\t\t\t\t\t</outerBoundaryIs>\n" +
+                "\t\t\t\t\t</Polygon>\n" +
+                "\t\t\t\t</Placemark>\n");
+        return oval.toString();
+    }
+
+    private void write(double L1, double B1, double Ve, double Vn,double sigVe,double sigVn, String ID,
+                       BufferedWriter bufferedWriter,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
+        //另一端点处经度度增加值 1:100万 1度->111km
+        double signNum = (1000 * Math.PI) / (111 * 180);
+        //另一端点处 L B
+        double L2 = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180);
+        double B2 = B1 + Vn * signNum;
+        //所需两点的基点（过渡点）
+        double multi = 0.9;
+        double tempL = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180) * multi;
+        double tempB = B1 + Vn * signNum * multi;
+        //所需两点
+        double multi1 = 0.1;
+        double arrowL1 = tempL + signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
+        double arrowB1 = tempB - signNum * Ve * multi1;
+        double arrowL2 = tempL - signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
+        double arrowB2 = tempB + signNum * Ve * multi1;
+
+        //颜色与label预处理
+        String basecolor = "\t\t\t\t\t\t\t<color>ff0000ff</color>\n";
+        String baseurl = "\t\t\t\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+        if (changeColor)
+            basecolor = basecolor.replaceAll("<color>\\w{6,8}</color>","<color>" + color + "</color>");
+        if (changeLabel) {
+            if (isInner) {
+                int location = Integer.valueOf(labelUrl);
+                if (location > innerLables.length | location < 1) {
+                    System.out.println("无此内置Label!");
+                    System.exit(1);
+                } else {
+                    baseurl = baseurl.replaceAll("<href>.+</href>",innerLables[location]);
+                }
+            } else {
+                baseurl = baseurl.replaceAll("<href>.+</href>","<href>" + labelUrl + "</href>");
+            }
+        }
+
+
         try {
             bufferedWriter.write("\t\t\t<Folder id=\"arrow\">\n" + "\t\t\t\t<name>" + ID + "</name>\n" +
                     "\t\t\t\t<description>" + ID + "</description>\n");
@@ -252,7 +263,7 @@ public class GE {
                     "\t\t\t\t\t<Style id=\"point\">\n" +
                     "\t\t\t\t\t\t<IconStyle>\n" +
                     "\t\t\t\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n" +
+                    baseurl +
                     "\t\t\t\t\t\t\t</Icon>\n" +
                     "\t\t\t\t\t\t</IconStyle>\n" +
                     "\t\t\t\t\t</Style>\n" +
@@ -266,7 +277,7 @@ public class GE {
             bufferedWriter.write("\t\t\t\t<Placemark>\n" +
                     "\t\t\t\t\t<Style id=\"arrow\">\n" +
                     "\t\t\t\t\t\t<LineStyle>\n" +
-                    "\t\t\t\t\t\t\t<color>ff0000ff</color>\n" +
+                    basecolor +
                     "\t\t\t\t\t\t\t<width>0.5</width>\n" +
                     "\t\t\t\t\t\t</LineStyle>\n" +
                     "\t\t\t\t\t</Style>\n"  +
@@ -281,7 +292,7 @@ public class GE {
                     "\t\t\t\t<Placemark>\n" +
                     "\t\t\t\t\t<Style id=\"arrow\">\n" +
                     "\t\t\t\t\t\t<LineStyle>\n" +
-                    "\t\t\t\t\t\t\t<color>ff0000ff</color>\n" +
+                    basecolor +
                     "\t\t\t\t\t\t\t<width>0.5</width>\n" +
                     "\t\t\t\t\t\t</LineStyle>\n" +
                     "\t\t\t\t\t</Style>\n"  +
@@ -295,6 +306,8 @@ public class GE {
             bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
                     "\t\t\t\t\t</LinearRing>\n" +
                     "\t\t\t\t</Placemark>\n");
+            //误差椭圆
+            bufferedWriter.write(oval(L2,B2,sigVe,sigVn,signNum,basecolor));
             bufferedWriter.write("\t\t\t</Folder>\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -302,8 +315,7 @@ public class GE {
 
     }
 
-
-    private void createNew(String pointFile,String newFile) {
+    private void createNew(String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
         String s, ss;
         Pattern pattern = Pattern.compile("<SimpleData name=\"NAME_1\">(.+?)</SimpleData>");
         Pattern pattern1 = Pattern.compile("<LinearRing><coordinates>(.+?)</coordinates></LinearRing>");
@@ -315,7 +327,7 @@ public class GE {
         Vector<Point> tempBoundary = new Vector<>();
         try {
             //1.读取边界并将原数据添加到目标kml
-            FileReader fileReader = new FileReader("E:/work/not_use_1/GE/china.kml");
+            FileReader fileReader = new FileReader("china.kml");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             FileWriter fileWriter = new FileWriter(newFile);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -388,8 +400,10 @@ public class GE {
                         double B1 = provinces.elementAt(i).infos.elementAt(j).B;
                         double Ve = provinces.elementAt(i).infos.elementAt(j).Ve;
                         double Vn = provinces.elementAt(i).infos.elementAt(j).Vn;
+                        double sigVe = provinces.elementAt(i).infos.elementAt(j).sigVe;
+                        double sigVn = provinces.elementAt(i).infos.elementAt(j).sigVn;
                         String ID = provinces.elementAt(i).infos.elementAt(j).ID;
-                        write(L1,B1,Ve,Vn,ID,bufferedWriter);
+                        write(L1,B1,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,changeColor,color,changeLabel,isInner,labelUrl);
                     }
                     bufferedWriter.write("\t\t</Folder>\n");
                 }
@@ -403,7 +417,7 @@ public class GE {
         }
     }
 
-    private void addOnNew(double L, double B,double Ve,double Vn,String ID, String oldFile, String newFile) {
+    private void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,String ID, String oldFile, String newFile) {
         /*
         //provinces序列化测试
         try {
@@ -448,7 +462,7 @@ public class GE {
                     matcher = pattern.matcher(s);
                     if (matcher.find()) {
                         bufferedWriter.write(s + "\n");
-                        write(L,B,Ve,Vn,ID,bufferedWriter);
+                        write(L,B,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,false,"",false,true,"");
                         hasNotThisPro = false;
                     } else {
                         matcher1 = pattern1.matcher(oldS);
@@ -456,7 +470,7 @@ public class GE {
                         if (matcher1.find() && matcher2.find() && hasNotThisPro) {
                             bufferedWriter.write("\t\t<Folder>\n" +
                                     "\t\t\t<name>" + provinces.elementAt(location).name + "</name>\n");
-                            write(L,B,Ve,Vn,ID,bufferedWriter);
+                            write(L,B,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,false,"",false,true,"");
                             bufferedWriter.write("\t\t</Folder>\n" +
                                     "\t</Document>\n" +
                                     "</kml>\n");
@@ -478,9 +492,9 @@ public class GE {
         }
     }
 
-    private void addOnOld(double L, double B,double Ve,double Vn,String ID, String oldFile) {
+    private void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,String ID, String oldFile) {
         String tempFile = oldFile+".temp";
-        addOnNew(L,B,Ve,Vn,ID,oldFile,tempFile);
+        addOnNew(L,B,Ve,Vn,sigVe,sigVn,ID,oldFile,tempFile);
         if (new File(oldFile).delete() && new File(tempFile).renameTo(new File(oldFile))) {
             System.out.println("添加成功！");
         }
@@ -548,7 +562,7 @@ public class GE {
     }
 
     //高亮或取消高亮
-    private void highLight(double L,double B,String oldFile,boolean isHighLight,String newFile,boolean isNew) {
+    private void highLight(double L,double B,String oldFile,boolean isHighLight,String color,String newFile,boolean isNew) {
         getBoundary();
         int location = segment(L,B);
         String s;
@@ -582,10 +596,19 @@ public class GE {
                         } else if (matcher.find()) {
                             //改写，退出
                             temp.add(s + "\n");
-                            if (isHighLight)
-                                temp.set(1,"\t<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>1</fill></PolyStyle></Style>\n");
-                            else
-                                temp.set(1,"\t<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>\n");
+                            if (isHighLight) {
+                                if(color.equals("")) {
+                                    temp.set(1,temp.get(1).replaceAll("</color><fill>\\d</fill>",
+                                            "</color><fill>1</fill>"));
+                                } else {
+                                    temp.set(1,temp.get(1).replaceAll("<color>\\w{6,8}</color><fill>\\d</fill>",
+                                            "<color>"+color+"</color><fill>1</fill>"));
+                                }
+                            }
+                            else {
+                                temp.set(1,temp.get(1).replaceAll("<fill>\\d</fill>",
+                                        "<fill>0</fill>"));
+                            }
                             for (String each:temp)
                                 bufferedWriter.write(each);
                             hasDone = true;
@@ -648,7 +671,7 @@ public class GE {
                             s = s.replaceAll("\\w{6,8}",color);
                             bufferedWriter.write(s + "\n");
                             sign++;
-                            if (sign == 2)
+                            if (sign == 3)
                                 break;
                         } else {
                             bufferedWriter.write(s + "\n");
@@ -684,10 +707,12 @@ public class GE {
         String labelUrl = label;
         if (inner) {
             int location = Integer.valueOf(label);
-            if (location <= innerLables.length)
+            if (location <= innerLables.length && location > 0)
                 labelUrl = innerLables[location -1];
-            else
+            else {
                 System.out.println("内置标签序号小于等于" + innerLables.length);
+                System.exit(1);
+            }
         }
         //改变labelurl
         String s;
@@ -758,88 +783,234 @@ public class GE {
         }
     }
 
+
+
     public static void main(String args[]) {
+        //用法
+        String Tutorial = "NOTE!!!china.kml and kml.jar must be in the same path!\n" +
+                "1.create\n" +
+                "java -jar kml.jar -p pointsPath [-C aabbggrr] [-I innerLabelNum / -O labelUrl] [-o kmlFilePath]\n" +
+                "2.add\n" +
+                "java -jar kml.jar -a L B Ve Vn sigVe sigVn ID -f oldKmlFilePath [-o newKmlFilePath]\n" +
+                "3.delete\n" +
+                "java -jar kml.jar -d L B -f oldKmlFilePath [-o newKmlFilePaht]\n" +
+                "4.highLight\n" +
+                "java -jar kml.jar -H L B -f oldKmlFilePath [-C aabbggrr] [-o newKmlFilePath]\n" +
+                "5.cancel highLight\n" +
+                "java -jar kml.jar -h L B -f oldKmlFilePath [-o newKmlFilePath]\n" +
+                "6.change arrow color\n" +
+                "java -jar kml.jar -c L B -f oldKmlFilePath -C aabbggrr [-o newKmlFilePath]\n" +
+                "7.change icon\n" +
+                "java -jar kml.jar -l L B -f oldKmlFilePath -I innerLabelNum [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -l L B -f oldKmlFilePath -O labelUrl [-o newKmlFilePath]\n" +
+                "8.show this information\n" +
+                "java -jar kml.jar --help\n";
+        //确保当前路径下有china.kml
+        File file = new File("china.kml");
+        if (!file.exists()) {
+            System.out.println(Tutorial);
+            System.exit(1);
+        }
         GE ge = new GE();
-        //分功能处理;对于参数位置任意暂不考虑
-        String param1 = args[0];
+        //必须确保传入合法参数！以免程序崩溃！
         int len = args.length;
-        if (param1.equals("-p")) {
-            String pointFile = args[1];
-            String newFile = pointFile.split("\\.")[0] + ".kml";
-            if (len > 2) {
-                newFile = args[3];
+        if (len == 0) {
+            System.out.println(Tutorial);
+            System.exit(1);
+        }
+        else if (args[0].equals("-a")) {
+            if (len < 10) {
+                System.out.println("输入参数有误！");
+                System.exit(1);
+            } else if(len == 10 && args[8].equals("-f")) {
+                ge.addOnOld(Double.valueOf(args[1]),
+                        Double.valueOf(args[2]),
+                        Double.valueOf(args[3]),
+                        Double.valueOf(args[4]),
+                        Double.valueOf(args[5]),
+                        Double.valueOf(args[6]),
+                        args[7],args[9]);
+            } else if (len == 12 && args[8].equals("-f") && args[10].equals("-o")){
+                ge.addOnNew(Double.valueOf(args[1]),
+                        Double.valueOf(args[2]),
+                        Double.valueOf(args[3]),
+                        Double.valueOf(args[4]),
+                        Double.valueOf(args[5]),
+                        Double.valueOf(args[6]),
+                        args[7],args[9],args[11]);
+            } else if (len == 12 && args[8].equals("-o") && args[10].equals("-f")) {
+                ge.addOnNew(Double.valueOf(args[1]),
+                        Double.valueOf(args[2]),
+                        Double.valueOf(args[3]),
+                        Double.valueOf(args[4]),
+                        Double.valueOf(args[5]),
+                        Double.valueOf(args[6]),
+                        args[7],args[11],args[9]);
             }
-            ge.createNew(pointFile,newFile);
-        } else {
-            //待处理坐标
-            double L = Double.valueOf(args[1]);
-            double B = Double.valueOf(args[2]);
-            //参数2
-            switch (param1) {
-                case "-a":
-                    //添加
-                    double Ve = Double.valueOf(args[3]);
-                    double Vn = Double.valueOf(args[4]);
-                    String ID = args[5];
-                    String fileAOld = args[7];
-                    if (len > 8) {
-                        //添加到新文件
-                        String fileANew = args[9];
-                        ge.addOnNew(L,B,Ve,Vn,ID,fileAOld,fileANew);
-                    } else {
-                        //添加到原文件
-                        ge.addOnOld(L,B,Ve,Vn,ID,fileAOld);
+            else {
+                System.out.println("输入参数有误！");
+                System.exit(1);
+            }
+        }
+        else {
+            String pointFile = "";
+            String newFile = "";
+            String color = "";
+            String labelUrl = "";
+            String L = "";
+            String B = "";
+            String oldFile = "";
+            boolean changeColor = false;
+            boolean changeLabel = false;
+            boolean isInner = false;
+            boolean isNew = false;
+            switch (args[0]) {
+                //String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,String labelUrl,boolean isInner
+                case "-p" :
+                    pointFile = args[1];
+                    for (int i = 2; i < len; i+=2) {
+                        String currentParam = args[i];
+                        switch (currentParam) {
+                            case "-C":
+                                changeColor = true;
+                                color = args[i+1];
+                                break;
+                            case "-I":
+                                changeLabel = true;
+                                isInner = true;
+                                labelUrl = args[i+1];
+                                break;
+                            case "-O":
+                                changeLabel = true;
+                                isInner = false;
+                                labelUrl = args[i+1];
+                                break;
+                            case "-o":
+                                newFile = args[i+1];
+                                break;
+                                default:
+                                  System.out.println("输入参数有误！");
+                                  System.exit(1);
+                        }
                     }
+                    if (newFile.equals(""))
+                        newFile = pointFile.split("\\.")[0] + ".kml";
+                    ge.createNew(pointFile,newFile,changeColor,color,changeLabel,isInner,labelUrl);
                     break;
                 case "-d":
-                    //删除
-                    String fileD = args[4];
-                    if (len > 5)
-                        ge.delete(args[1],args[2],fileD,args[6],true);
-                    else
-                        ge.delete(args[1],args[2],fileD,"",false);
+                    L = args[1];
+                    B = args[2];
+                    for (int i = 3; i < len; i+=2) {
+                        switch (args[i]) {
+                            case "-f":
+                                oldFile = args[i+1];
+                                break;
+                            case  "-o":
+                                newFile = args[i+1];
+                                isNew = true;
+                                break;
+                                default:
+                                    System.out.println("输入参数有误!");
+                                    System.exit(1);
+                        }
+                    }
+                    ge.delete(L,B,oldFile,newFile,isNew);
                     break;
                 case "-H":
-                    //高亮显示相应的省份
-                    String fileH = args[4];
-                    if (len > 5)
-                        ge.highLight(L,B,fileH,true,args[6],true);
-                    else
-                        ge.highLight(L,B,fileH,true,"",false);
+                    L = args[1];
+                    B = args[2];
+                    for (int i = 3; i < len; i+=2) {
+                        switch (args[i]) {
+                            case "-f":
+                                oldFile = args[i+1];
+                                break;
+                            case  "-o":
+                                newFile = args[i+1];
+                                isNew = true;
+                                break;
+                            case "-C":
+                                color = args[i+1];
+                                break;
+                                default:
+                                    System.out.println("输入参数有误！");
+                                    System.exit(1);
+                        }
+                    }
+                    ge.highLight(Double.valueOf(L),Double.valueOf(B),oldFile,true,color,newFile,isNew);
                     break;
                 case "-h":
-                    //取消高亮显示相应的省份
-                    String fileh = args[4];
-                    if (len > 5)
-                        ge.highLight(L,B,fileh,false,args[6],true);
-                    else
-                        ge.highLight(L,B,fileh,false,"",false);
+                    L = args[1];
+                    B = args[2];
+                    for (int i = 3; i < len; i+=2) {
+                        switch (args[i]) {
+                            case "-f":
+                                oldFile = args[i+1];
+                                break;
+                            case "-o":
+                                newFile = args[i+1];
+                                isNew = true;
+                                break;
+                                default:
+                                    System.out.println("输入参数有误！");
+                                    System.exit(1);
+                        }
+                    }
+                    ge.highLight(Double.valueOf(L),Double.valueOf(B),oldFile,false,color,newFile,isNew);
                     break;
                 case "-c":
-                    //改变相应箭头的颜色
-                    String fileC = args[4];
-                    String color = args[6];
-                    if (len > 8)
-                        ge.changeColor(args[1], args[2], fileC, color,args[8],true);
-                    else
-                        ge.changeColor(args[1], args[2], fileC, color,"",false);
+                    L = args[1];
+                    B = args[2];
+                    for(int i = 3; i < len; i+=2) {
+                        switch (args[i]) {
+                            case "-f":
+                                oldFile = args[i+1];
+                                break;
+                            case "-o":
+                                newFile = args[i+1];
+                                isNew = true;
+                                break;
+                            case "-C":
+                                color = args[i+1];
+                                break;
+                                default:
+                                    System.out.println("输入参数有误!");
+                                    System.exit(1);
+                        }
+                    }
+                    ge.changeColor(L,B,oldFile,color,newFile,isNew);
                     break;
                 case "-l":
-                    //改变相应点的图标
-                    if (args[5].equals("-I")) {
-                        if (len > 8)
-                            ge.changeLabel(args[1],args[2],args[4],args[6],true,args[8],true);
-                        else
-                            ge.changeLabel(args[1],args[2],args[4],args[6],true,"",false);
+                    L = args[1];
+                    B = args[2];
+                    for (int i = 3; i < len; i+=2) {
+                        switch (args[i]) {
+                            case "-f":
+                                oldFile = args[i+1];
+                                break;
+                            case "-o":
+                                newFile = args[i+1];
+                                isNew = true;
+                                break;
+                            case "-I":
+                                labelUrl = args[i+1];
+                                isInner = true;
+                                break;
+                            case "-O":
+                                labelUrl = args[i+1];
+                                isInner = false;
+                                break;
+                                default:
+                                    System.out.println("输入参数有误！");
+                                    System.exit(1);
+                        }
                     }
-                    else {
-                        if (len > 8)
-                            ge.changeLabel(args[1], args[2], args[4], args[6], false, args[8], true);
-                        else
-                            ge.changeLabel(args[1], args[2], args[4], args[6], false, "", false);
-                    }
+                    ge.changeLabel(L,B,oldFile,labelUrl,isInner,newFile,isNew);
                     break;
+                case "--help":
+                    System.out.println(Tutorial);
+                    default:
+                        System.out.println(Tutorial);
+                }
             }
         }
     }
-}
