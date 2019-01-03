@@ -8,8 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a07596d2-417a-4190-91bf-f36d56124cc5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE1/GE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE1/GE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/GE1_jar/GE1.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Info.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,23 +23,23 @@
     <session id="-866147316">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.34" value="1" />
-          <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.35" value="2" />
           <entry key="project.open.time.36" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="6" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="JAVA" value="7" />
+          <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4411" />
+          <entry key="JAVA" value="5348" />
         </counts>
       </usages-collector>
     </session>
@@ -48,8 +49,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            <state relative-caret-position="1300">
+              <caret line="838" column="43" selection-start-line="838" selection-start-column="43" selection-end-line="838" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getBoundary#0;class#GE#0" />
@@ -63,6 +64,7 @@
                 <element signature="method#highLight#0;class#GE#0" />
                 <element signature="method#changeColor#0;class#GE#0" />
                 <element signature="method#changeLabel#0;class#GE#0" />
+                <element signature="method#main#0;class#GE#0" />
               </folding>
             </state>
           </provider>
@@ -71,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Province.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
+            <state relative-caret-position="400">
               <caret line="16" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Info.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="400">
+              <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -114,8 +116,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Province.java" />
-        <option value="$PROJECT_DIR$/src/Info.java" />
         <option value="$PROJECT_DIR$/src/Point.java" />
+        <option value="$PROJECT_DIR$/src/Info.java" />
         <option value="$PROJECT_DIR$/src/GE.java" />
       </list>
     </option>
@@ -136,7 +138,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,12 +150,14 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545574504228" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546510443773" />
+    <property name="last_opened_file_path" value="E:/work/not_use_1/GE/jgrb52327s01.txt" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -177,7 +180,7 @@
     <configuration name="GE" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GE" />
       <module name="GE1" />
-      <option name="PROGRAM_PARAMETERS" value="-p E:/work/not_use_1/GE/points.txt" />
+      <option name="PROGRAM_PARAMETERS" value="-p GE_TST.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -202,16 +205,17 @@
       <workItem from="1545541280959" duration="17613000" />
       <workItem from="1545562974693" duration="6827000" />
       <workItem from="1545570700605" duration="3700000" />
+      <workItem from="1546491912732" duration="14948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29949000" />
+    <option name="totallyTimeSpent" value="44897000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23458445" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23793566" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -247,18 +251,6 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/GE.java</url>
-          <line>597</line>
-          <properties />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
       <expression>
@@ -276,20 +268,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Province.java">
+    <entry file="file://$PROJECT_DIR$/txt.kml" />
+    <entry file="jar://D:/JDK/jdk-11.0.1_windows-x64_bin/jdk-11.0.1/lib/src.zip!/java.base/java/io/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Info.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="451">
+          <caret line="811" column="19" selection-start-line="811" selection-start-column="19" selection-end-line="811" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -300,20 +283,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/txt.kml">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
+    <entry file="file://E:/work/not_use_1/GE/jgrb52327s01.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="jar://D:/JDK/jdk-11.0.1_windows-x64_bin/jdk-11.0.1/lib/src.zip!/java.base/java/io/File.java">
+    <entry file="jar://D:/JDK/jdk-11.0.1_windows-x64_bin/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Math.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="451">
-          <caret line="811" column="19" selection-start-line="811" selection-start-column="19" selection-end-line="811" selection-end-column="19" />
+          <caret line="237" column="25" selection-start-line="237" selection-start-column="25" selection-end-line="237" selection-end-column="25" />
+          <folding>
+            <element signature="e#9127#9128#0" expanded="true" />
+            <element signature="e#9209#9210#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Province.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        <state relative-caret-position="1300">
+          <caret line="838" column="43" selection-start-line="838" selection-start-column="43" selection-end-line="838" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getBoundary#0;class#GE#0" />
@@ -327,6 +331,7 @@
             <element signature="method#highLight#0;class#GE#0" />
             <element signature="method#changeColor#0;class#GE#0" />
             <element signature="method#changeLabel#0;class#GE#0" />
+            <element signature="method#main#0;class#GE#0" />
           </folding>
         </state>
       </provider>

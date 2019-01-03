@@ -11,7 +11,7 @@ public class GE {
     //存储每一个省的数据
     private Vector<Province> provinces = new Vector<>();
 
-    //内置Lable
+    //内置Label
     private static String [] innerLables = {
             "http://104.224.134.83/other/cug.png",
             "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png",
@@ -152,7 +152,7 @@ public class GE {
         return -1;
     }
 
-    private String oval(double L2,double B2,double sigVe,double sigVn,double signNum,String baseColor) {
+    private String oval(double L2,double B2,double sigVe,double sigVn,double sigVen,double signNum,String baseColor) {
         //误差椭圆
         ArrayList<Point> ovalPoints = new ArrayList<>();
         int NUM = 50;
@@ -161,11 +161,13 @@ public class GE {
         double current = -step;
         for (int i = 0; i < NUM ; i++) {
             current += step;
-            double currentX = current * signNum / Math.cos(B2 * Math.PI / 180);
-            double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe)) * signNum;
+            //double currentX = current * signNum / Math.cos(B2 * Math.PI / 180);
+            //double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe)) * signNum;
+            double currentX = current;
+            double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe));
             ovalPoints.add(new Point(currentX,currentY));
         }
-        ovalPoints.add(new Point(sigVe * signNum / Math.cos(Math.PI * B2 / 180),0));
+        ovalPoints.add(new Point(sigVe,0));
         StringBuilder oval = new StringBuilder("\t\t\t\t<Placemark>\n" +
                 "\t\t\t\t\t<Style id=\"oval\">\n" +
                 "\t\t\t\t\t\t<LineStyle>\n" +
@@ -181,34 +183,81 @@ public class GE {
                 "\t\t\t\t\t\t\t<LinearRing>\n" +
                 "\t\t\t\t\t\t\t\t<coordinates>\n" +
                 "\t\t\t\t\t\t\t\t");
+
+        //协方差对应旋转的角度
+        double K = Math.sqrt((sigVe - sigVn) * (sigVe - sigVn) + 4 * sigVen * sigVen);
+        double Qee = (sigVe + sigVn + K) / 2;
+        double alpha = 0;
+        if (sigVen > 0)
+            alpha = Math.atan((Qee - sigVe) / sigVen);
+
+        double X,Y;
+
         //右上
         for (int i = 0; i < NUM; i++) {
-            oval.append(L2 + ovalPoints.get(i).x);
+            double tempX = ovalPoints.get(i).x;
+            double tempY = ovalPoints.get(i).y;
+            if (sigVen > 0) {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            } else {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            }
+            oval.append(X);
             oval.append(',');
-            oval.append(B2 + ovalPoints.get(i).y);
+            oval.append(Y);
             oval.append(' ');
         }
         //右下
         for (int i = NUM; i > 0; i--) {
-            oval.append(L2 + ovalPoints.get(i).x);
+            double tempX = ovalPoints.get(i).x;
+            double tempY = -ovalPoints.get(i).y;
+            if (sigVen > 0) {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            } else {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            }
+            oval.append(X);
             oval.append(',');
-            oval.append(B2 - ovalPoints.get(i).y);
+            oval.append(Y);
             oval.append(' ');
         }
         //左下
         for (int i = 0; i < NUM; i++) {
-            oval.append(L2 - ovalPoints.get(i).x);
+            double tempX = -ovalPoints.get(i).x;
+            double tempY = -ovalPoints.get(i).y;
+            if (sigVen > 0) {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            } else {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            }
+            oval.append(X);
             oval.append(',');
-            oval.append(B2 - ovalPoints.get(i).y);
+            oval.append(Y);
             oval.append(' ');
         }
         //左上
         for (int i = NUM; i >= 0; i--) {
-            oval.append(L2 - ovalPoints.get(i).x);
+            double tempX = -ovalPoints.get(i).x;
+            double tempY = ovalPoints.get(i).y;
+            if (sigVen > 0) {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            } else {
+                X = L2 + (tempX * Math.cos(alpha) - tempY * Math.sin(alpha)) * signNum / Math.cos(B2 * Math.PI / 180);
+                Y = B2 + (tempX * Math.sin(alpha) + tempY * Math.cos(alpha)) * signNum;
+            }
+            oval.append(X);
             oval.append(',');
-            oval.append(B2 + ovalPoints.get(i).y);
+            oval.append(Y);
             oval.append(' ');
         }
+
         oval.append("\n\t\t\t\t\t\t\t\t</coordinates>\n" +
                 "\t\t\t\t\t\t\t</LinearRing>\n" +
                 "\t\t\t\t\t\t</outerBoundaryIs>\n" +
@@ -217,7 +266,7 @@ public class GE {
         return oval.toString();
     }
 
-    private void write(double L1, double B1, double Ve, double Vn,double sigVe,double sigVn, String ID,
+    private void write(double L1, double B1, double Ve, double Vn,double sigVe,double sigVn, double sigVen,String ID,
                        BufferedWriter bufferedWriter,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
         //另一端点处经度度增加值 1:100万 1度->111km
         double signNum = (1000 * Math.PI) / (111 * 180);
@@ -307,7 +356,7 @@ public class GE {
                     "\t\t\t\t\t</LinearRing>\n" +
                     "\t\t\t\t</Placemark>\n");
             //误差椭圆
-            bufferedWriter.write(oval(L2,B2,sigVe,sigVn,signNum,basecolor));
+            bufferedWriter.write(oval(L2,B2,sigVe,sigVn,sigVen,signNum,basecolor));
             bufferedWriter.write("\t\t\t</Folder>\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -380,10 +429,11 @@ public class GE {
                 double sigVe = Double.valueOf(info[4]);
                 double sigVn = Double.valueOf(info[5]);
                 //info[6]协方差暂时忽略
+                double sigVen = Double.valueOf(info[6]);
                 String ID = info[7];
                 int location = segment(L,B);
                 if (location >= 0)
-                    provinces.elementAt(location).infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,ID));
+                    provinces.elementAt(location).infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID));
                 else {
                     System.out.println(L + ", " + B + ": 分类发生错误！");
                 }
@@ -402,8 +452,9 @@ public class GE {
                         double Vn = provinces.elementAt(i).infos.elementAt(j).Vn;
                         double sigVe = provinces.elementAt(i).infos.elementAt(j).sigVe;
                         double sigVn = provinces.elementAt(i).infos.elementAt(j).sigVn;
+                        double sigVen = provinces.elementAt(i).infos.elementAt(j).sigVen;
                         String ID = provinces.elementAt(i).infos.elementAt(j).ID;
-                        write(L1,B1,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,changeColor,color,changeLabel,isInner,labelUrl);
+                        write(L1,B1,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,changeColor,color,changeLabel,isInner,labelUrl);
                     }
                     bufferedWriter.write("\t\t</Folder>\n");
                 }
@@ -417,7 +468,7 @@ public class GE {
         }
     }
 
-    private void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,String ID, String oldFile, String newFile) {
+    private void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile, String newFile) {
         /*
         //provinces序列化测试
         try {
@@ -462,7 +513,7 @@ public class GE {
                     matcher = pattern.matcher(s);
                     if (matcher.find()) {
                         bufferedWriter.write(s + "\n");
-                        write(L,B,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,false,"",false,true,"");
+                        write(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,false,"",false,true,"");
                         hasNotThisPro = false;
                     } else {
                         matcher1 = pattern1.matcher(oldS);
@@ -470,7 +521,7 @@ public class GE {
                         if (matcher1.find() && matcher2.find() && hasNotThisPro) {
                             bufferedWriter.write("\t\t<Folder>\n" +
                                     "\t\t\t<name>" + provinces.elementAt(location).name + "</name>\n");
-                            write(L,B,Ve,Vn,sigVe,sigVn,ID,bufferedWriter,false,"",false,true,"");
+                            write(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,false,"",false,true,"");
                             bufferedWriter.write("\t\t</Folder>\n" +
                                     "\t</Document>\n" +
                                     "</kml>\n");
@@ -492,9 +543,9 @@ public class GE {
         }
     }
 
-    private void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,String ID, String oldFile) {
+    private void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile) {
         String tempFile = oldFile+".temp";
-        addOnNew(L,B,Ve,Vn,sigVe,sigVn,ID,oldFile,tempFile);
+        addOnNew(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,oldFile,tempFile);
         if (new File(oldFile).delete() && new File(tempFile).renameTo(new File(oldFile))) {
             System.out.println("添加成功！");
         }
@@ -791,7 +842,7 @@ public class GE {
                 "1.create\n" +
                 "java -jar kml.jar -p pointsPath [-C aabbggrr] [-I innerLabelNum / -O labelUrl] [-o kmlFilePath]\n" +
                 "2.add\n" +
-                "java -jar kml.jar -a L B Ve Vn sigVe sigVn ID -f oldKmlFilePath [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -a L B Ve Vn sigVe sigVn sigVen ID -f oldKmlFilePath [-o newKmlFilePath]\n" +
                 "3.delete\n" +
                 "java -jar kml.jar -d L B -f oldKmlFilePath [-o newKmlFilePaht]\n" +
                 "4.highLight\n" +
@@ -819,33 +870,36 @@ public class GE {
             System.exit(1);
         }
         else if (args[0].equals("-a")) {
-            if (len < 10) {
+            if (len < 11) {
                 System.out.println("输入参数有误！");
                 System.exit(1);
-            } else if(len == 10 && args[8].equals("-f")) {
+            } else if(len == 11 && args[9].equals("-f")) {
                 ge.addOnOld(Double.valueOf(args[1]),
                         Double.valueOf(args[2]),
                         Double.valueOf(args[3]),
                         Double.valueOf(args[4]),
                         Double.valueOf(args[5]),
                         Double.valueOf(args[6]),
-                        args[7],args[9]);
-            } else if (len == 12 && args[8].equals("-f") && args[10].equals("-o")){
+                        Double.valueOf(args[7]),
+                        args[8],args[10]);
+            } else if (len == 13 && args[9].equals("-f") && args[11].equals("-o")){
                 ge.addOnNew(Double.valueOf(args[1]),
                         Double.valueOf(args[2]),
                         Double.valueOf(args[3]),
                         Double.valueOf(args[4]),
                         Double.valueOf(args[5]),
                         Double.valueOf(args[6]),
-                        args[7],args[9],args[11]);
-            } else if (len == 12 && args[8].equals("-o") && args[10].equals("-f")) {
+                        Double.valueOf(args[7]),
+                        args[8],args[10],args[12]);
+            } else if (len == 13 && args[9].equals("-o") && args[11].equals("-f")) {
                 ge.addOnNew(Double.valueOf(args[1]),
                         Double.valueOf(args[2]),
                         Double.valueOf(args[3]),
                         Double.valueOf(args[4]),
                         Double.valueOf(args[5]),
                         Double.valueOf(args[6]),
-                        args[7],args[11],args[9]);
+                        Double.valueOf(args[7]),
+                        args[8],args[12],args[10]);
             }
             else {
                 System.out.println("输入参数有误！");
