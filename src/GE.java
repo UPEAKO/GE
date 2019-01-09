@@ -335,7 +335,7 @@ public class GE {
             String line = "\t\t\t\t\t\t\t" + Double.toString(L1) + "," + Double.toString(B1) + " " +
                     Double.toString(L2) + "," + Double.toString(B2) + "\n";
             bufferedWriter.write(line);
-            bufferedWriter.write("\t\t\t\t</coordinates>\n" +
+            bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
                     "\t\t\t\t\t</LinearRing>\n" +
                     "\t\t\t\t</Placemark>\n" +
                     "\t\t\t\t<Placemark>\n" +
@@ -440,6 +440,19 @@ public class GE {
             }
             bufferedReader.close();
             fileReader.close();
+            //添加徽标
+            bufferedWriter.write("\t\t<Folder>\n" +
+                    "\t\t\t<name>LABEL</name>\n" +
+                    "\t\t\t<ScreenOverlay id=\"label\">\n" +
+                    "\t\t\t\t<name>label</name>\n" +
+                    "\t\t\t\t<Icon>\n" +
+                    "\t\t\t\t\t<href>http://104.224.134.83/other/sign.jpg</href>\n" +
+                    "\t\t\t\t</Icon>\n" +
+                    "\t\t\t\t<overlayXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<screenXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<size x=\"50\" y=\"50\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t\t</ScreenOverlay>\n" +
+                    "\t\t</Folder>\n");
             //3.写文件
             for (int i = 0; i < provinces.size(); i++) {
                 if (provinces.elementAt(i).infos.size() > 0) {
