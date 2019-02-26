@@ -851,22 +851,22 @@ public class GE {
 
     public static void main(String args[]) {
         //用法
-        String Tutorial = "NOTE!!!china.kml and kml.jar must be in the same path!\n" +
+        String Tutorial = "NOTE!!!china.kml and kml.jar must be in the same path!\n\n" +
                 "1.create\n" +
-                "java -jar kml.jar -p pointsPath [-C aabbggrr] [-I innerLabelNum / -O labelUrl] [-o kmlFilePath]\n" +
+                "java -jar kml.jar -p pointsPath [-C aabbggrr] [-I innerLabelNum / -O labelUrl] [-o kmlFilePath]\n\n" +
                 "2.add\n" +
-                "java -jar kml.jar -a L B Ve Vn sigVe sigVn sigVen ID -f oldKmlFilePath [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -a L B Ve Vn sigVe sigVn sigVen ID -f oldKmlFilePath [-o newKmlFilePath]\n\n" +
                 "3.delete\n" +
-                "java -jar kml.jar -d L B -f oldKmlFilePath [-o newKmlFilePaht]\n" +
+                "java -jar kml.jar -d L B -f oldKmlFilePath [-o newKmlFilePaht]\n\n" +
                 "4.highLight\n" +
-                "java -jar kml.jar -H L B -f oldKmlFilePath [-C aabbggrr] [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -H L B -f oldKmlFilePath [-C aabbggrr] [-o newKmlFilePath]\n\n" +
                 "5.cancel highLight\n" +
-                "java -jar kml.jar -h L B -f oldKmlFilePath [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -h L B -f oldKmlFilePath [-o newKmlFilePath]\n\n" +
                 "6.change arrow color\n" +
-                "java -jar kml.jar -c L B -f oldKmlFilePath -C aabbggrr [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -c L B -f oldKmlFilePath -C aabbggrr [-o newKmlFilePath]\n\n" +
                 "7.change icon\n" +
                 "java -jar kml.jar -l L B -f oldKmlFilePath -I innerLabelNum [-o newKmlFilePath]\n" +
-                "java -jar kml.jar -l L B -f oldKmlFilePath -O labelUrl [-o newKmlFilePath]\n" +
+                "java -jar kml.jar -l L B -f oldKmlFilePath -O labelUrl [-o newKmlFilePath]\n\n" +
                 "8.show this information\n" +
                 "java -jar kml.jar --help\n";
         //确保当前路径下有china.kml
