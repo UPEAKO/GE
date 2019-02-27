@@ -13,7 +13,7 @@ public class GE {
 
     //内置Label
     private static String [] innerLables = {
-            "http://104.224.134.83/other/cug.png",
+            "http://www.wypmk.xyz/other/cug.png",
             "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png",
             "http://maps.google.com/mapfiles/kml/shapes/target.png",
             "http://maps.google.com/mapfiles/kml/shapes/shaded_dot.png"
@@ -446,11 +446,11 @@ public class GE {
                     "\t\t\t<ScreenOverlay id=\"label\">\n" +
                     "\t\t\t\t<name>label</name>\n" +
                     "\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t<href>http://104.224.134.83/other/sign.jpg</href>\n" +
+                    "\t\t\t\t\t<href>http://www.wypmk.xyz/other/sign.jpg</href>\n" +
                     "\t\t\t\t</Icon>\n" +
                     "\t\t\t\t<overlayXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                     "\t\t\t\t<screenXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<size x=\"50\" y=\"50\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t\t\t<size x=\"100\" y=\"100\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
                     "\t\t\t</ScreenOverlay>\n" +
                     "\t\t</Folder>\n");
             //3.写文件

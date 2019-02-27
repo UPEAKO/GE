@@ -7,12 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a07596d2-417a-4190-91bf-f36d56124cc5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE1/GE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE1/GE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE1/Info.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE1/Info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE1/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE1/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE1/Province.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE1/Province.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/GE1_jar/GE1.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GE.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3496">
-              <caret line="868" column="95" selection-start-line="868" selection-start-column="95" selection-end-line="868" selection-end-column="95" />
+            <state relative-caret-position="19">
+              <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getBoundary#0;class#GE#0" />
@@ -49,7 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Province.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="285">
               <caret line="16" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -61,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Info.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="304">
               <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
             </state>
           </provider>
@@ -70,7 +66,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Point.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="171">
               <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
             </state>
           </provider>
@@ -108,19 +104,19 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551191043887" />
-    <property name="last_opened_file_path" value="E:/work/not_use_1/GE/jgrb52327s01.txt" />
+    <property name="last_opened_file_path" value="$USER_HOME$/work/GE/china.kml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -170,16 +166,18 @@
       <workItem from="1547026691172" duration="543000" />
       <workItem from="1547027446611" duration="794000" />
       <workItem from="1551189599902" duration="1447000" />
+      <workItem from="1551196317951" duration="362000" />
+      <workItem from="1551267062914" duration="5668000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47681000" />
+    <option name="totallyTimeSpent" value="53711000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18539014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18981738" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -195,7 +193,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32907802" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -229,10 +227,39 @@
     <entry file="jar://D:/JDK/jdk-11.0.1_windows-x64_bin/jdk-11.0.1/lib/src.zip!/java.base/java/io/File.java" />
     <entry file="file://E:/work/not_use_1/GE/jgrb52327s01.txt" />
     <entry file="jar://D:/JDK/jdk-11.0.1_windows-x64_bin/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Math.java" />
+    <entry file="file://$PROJECT_DIR$/src/Province.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/work/GE/china.kml">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="-181800" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3496">
-          <caret line="868" column="95" selection-start-line="868" selection-start-column="95" selection-end-line="868" selection-end-column="95" />
+        <state relative-caret-position="19">
+          <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getBoundary#0;class#GE#0" />
@@ -246,30 +273,6 @@
             <element signature="method#changeColor#0;class#GE#0" />
             <element signature="method#changeLabel#0;class#GE#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Province.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Info.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -315,7 +318,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>11</last-edited>
+          <last-edited>10</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
