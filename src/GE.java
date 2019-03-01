@@ -327,7 +327,7 @@ public class GE {
                     "\t\t\t\t\t<Style id=\"arrow\">\n" +
                     "\t\t\t\t\t\t<LineStyle>\n" +
                     basecolor +
-                    "\t\t\t\t\t\t\t<width>0.5</width>\n" +
+                    "\t\t\t\t\t\t\t<width>1.0</width>\n" +
                     "\t\t\t\t\t\t</LineStyle>\n" +
                     "\t\t\t\t\t</Style>\n"  +
                     "\t\t\t\t\t<LinearRing>\n" +
@@ -342,7 +342,7 @@ public class GE {
                     "\t\t\t\t\t<Style id=\"arrow\">\n" +
                     "\t\t\t\t\t\t<LineStyle>\n" +
                     basecolor +
-                    "\t\t\t\t\t\t\t<width>0.5</width>\n" +
+                    "\t\t\t\t\t\t\t<width>1.0</width>\n" +
                     "\t\t\t\t\t\t</LineStyle>\n" +
                     "\t\t\t\t\t</Style>\n"  +
                     "\t\t\t\t\t<LinearRing>\n" +
@@ -419,6 +419,11 @@ public class GE {
             fileReader = new FileReader(pointFile);
             bufferedReader = new BufferedReader(fileReader);
             String sp;
+
+            //the sign of other province
+            boolean signOther = false;
+            int numOfError = 0;
+
             //读一个处理一个
             while ((sp = bufferedReader.readLine()) != null) {
                 String []info = sp.split(" ");
@@ -435,9 +440,17 @@ public class GE {
                 if (location >= 0)
                     provinces.elementAt(location).infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID));
                 else {
-                    System.out.println(L + ", " + B + ": 分类发生错误！");
+                    //System.out.println(L + ", " + B + ": 分类发生错误！");
+                    //draw other point
+                    if (!signOther) {
+                        signOther = true;
+                        provinces.add(new Province());
+                        provinces.lastElement().name = "OutOfChina";
+                    }
+                    provinces.lastElement().infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID));
                 }
             }
+
             bufferedReader.close();
             fileReader.close();
             //添加徽标
@@ -446,7 +459,7 @@ public class GE {
                     "\t\t\t<ScreenOverlay id=\"label\">\n" +
                     "\t\t\t\t<name>label</name>\n" +
                     "\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t<href>http://www.wypmk.xyz/other/sign.jpg</href>\n" +
+                    "\t\t\t\t\t<href>http://www.wypmk.xyz/other/sign.png</href>\n" +
                     "\t\t\t\t</Icon>\n" +
                     "\t\t\t\t<overlayXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                     "\t\t\t\t<screenXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
