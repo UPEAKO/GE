@@ -6,6 +6,10 @@ import java.util.regex.Pattern;
 
 /**
  * 注意这里的颜色为aabbggrr
+ * 43234
+ * 868
+ * 1708
+ * 未进入k=0或不存在的分支
  */
 public class GE {
     //存储每一个省的数据
@@ -68,13 +72,13 @@ public class GE {
         }
     }
 
+
     //对一个点进行分类
     private int segment(double L1, double B1) {
         //省级
         for (int i = 0; i < provinces.size(); i++) {
             //包括岛
             Province tempProvince = provinces.elementAt(i);
-            //boolean signIOver = false;
             for (int j = 0; j < tempProvince.boundarys.size(); j++) {
                 Vector<Point> tempBoundary = tempProvince.boundarys.elementAt(j);
                 //取前两点中点
@@ -87,61 +91,54 @@ public class GE {
                 double vecBaseX = L2 - L1;
                 double vecBaseY = B2 - B1;
                 int num = 1;
-                //k不存在
-                if(Math.abs(L2 - L1) < 1.0E-20) {
-                    for (int k = 1; k < tempBoundary.size() - 1; k++) {
-                        if ((tempBoundary.elementAt(k).x - L1) * (tempBoundary.elementAt(k + 1).x - L1) < 0 &&
-                                (tempBoundary.elementAt(k).x > B1 | tempBoundary.elementAt(k+1).x > B1)) {
-                            num++;
-                        }
+                double A = B1 - B2;
+                double B = L2 - L1;
+                double C = L1 * B2 - L2 * B1;
+                double signTwoSide = 0;
+                for (int k = 1; k < tempBoundary.size() - 1; k++) {
+                    //以当前线段为base直线判断
+                    boolean isFront = false;
+                    double tX1 = tempBoundary.elementAt(k).x;
+                    double tY1 = tempBoundary.elementAt(k).y;
+                    double tX2 = tempBoundary.elementAt(k + 1).x;
+                    double tY2 = tempBoundary.elementAt(k + 1).y;
+                    double tA = tY1 - tY2;
+                    double tB = tX2 - tX1;
+                    double tC = tX1 * tY2 - tX2 * tY1;
+
+                    if (Math.abs(L2 - L1) < 1.0E-20) {
+                        if ((tempBoundary.elementAt(k).x - L1) * (tempBoundary.elementAt(k + 1).x - L1) < 0)
+                            signTwoSide = -1;
                     }
-                }
-                //k = 0
-                else if(Math.abs(B2 - B1) < 1.0E-20) {
-                    for (int k = 1; k < tempBoundary.size() - 1; k++) {
-                        if ((tempBoundary.elementAt(k).y - B1) * (tempBoundary.elementAt(k + 1).y - B1) < 0 &&
-                                (tempBoundary.elementAt(k).y > L1 | tempBoundary.elementAt(k+1).y > L1)) {
-                            num++;
-                        }
+                    else if(Math.abs(B2 - B1) < 1.0E-20) {
+                        if ((tempBoundary.elementAt(k).y - B1) * (tempBoundary.elementAt(k + 1).y - B1) < 0)
+                            signTwoSide = -1;
                     }
-                }
-                else {
-                    double A = B1 - B2;
-                    double B = L2 - L1;
-                    double C = L1 * B2 - L2 * B1;
-                    for (int k = 1; k < tempBoundary.size() - 1; k++) {
-                        //以当前线段为base直线判断
-                        boolean isFront = false;
-                        double tX1 = tempBoundary.elementAt(k).x;
-                        double tY1 = tempBoundary.elementAt(k).y;
-                        double tX2 = tempBoundary.elementAt(k + 1).x;
-                        double tY2 = tempBoundary.elementAt(k + 1).y;
-                        double tA = tY1 - tY2;
-                        double tB = tX2 - tX1;
-                        double tC = tX1 * tY2 - tX2 * tY1;
-                        double signTwoSide = (A * tX1 + B * tY1 + C) *
-                                (A * tX2 + B * tY2 + C);
-                        if (Math.abs(tX1 - tX2) <  1.0E-20) {
-                            if ((L2 - L1) * (tX1 - L1) > 0)
-                                isFront = true;
-                        }
-                        else if (Math.abs(tY1 - tY2) < 1.0E-20) {
-                            if ((B2 - B1) * (tY1 - B1) > 0)
-                                isFront = true;
-                        } else {
-                            double tK1 = (tY2 - tY1) / (tX2 - tX1);
-                            double tK2 = -1 / tK1;
-                            double b = B1 - tK2 * L1;
-                            double verticalX = - (tB * b + tC) / (tA + tB * tK2);
-                            double verticalY = tK2 * verticalX + b;
-                            double vecVerX = verticalX - L1;
-                            double vecVerY = verticalY - B1;
-                            if (vecBaseX * vecVerX + vecBaseY * vecVerY > 0)
-                                isFront = true;
-                        }
-                        if (signTwoSide < 0 && isFront) {
-                            num++;
-                        }
+                    else {
+                        signTwoSide = (A * tX1 + B * tY1 + C) * (A * tX2 + B * tY2 + C);
+                    }
+
+
+
+                    if (Math.abs(tX1 - tX2) < 1.0E-20) {
+                        if ((L2 - L1) * (tX1 - L1) > 0)
+                            isFront = true;
+                    } else if (Math.abs(tY1 - tY2) < 1.0E-20) {
+                        if ((B2 - B1) * (tY1 - B1) > 0)
+                            isFront = true;
+                    } else {
+                        double tK1 = (tY2 - tY1) / (tX2 - tX1);
+                        double tK2 = -1 / tK1;
+                        double b = B1 - tK2 * L1;
+                        double verticalX = -(tB * b + tC) / (tA + tB * tK2);
+                        double verticalY = tK2 * verticalX + b;
+                        double vecVerX = verticalX - L1;
+                        double vecVerY = verticalY - B1;
+                        if (vecBaseX * vecVerX + vecBaseY * vecVerY > 0)
+                            isFront = true;
+                    }
+                    if (signTwoSide < 0 && isFront) {
+                        num++;
                     }
                 }
                 if (num % 2 != 0) {
@@ -151,6 +148,7 @@ public class GE {
         }
         return -1;
     }
+
 
     private String oval(double L2,double B2,double sigVe,double sigVn,double sigVen,double signNum,String baseColor) {
         //误差椭圆
@@ -318,7 +316,7 @@ public class GE {
                     "\t\t\t\t\t</Style>\n" +
                     "\t\t\t\t\t<Point>\n" +
                     "\t\t\t\t\t\t<coordinates>\n");
-            bufferedWriter.write("\t\t\t\t\t\t" + Double.toString(L1) + "," + Double.toString(B1) +"\n");
+            bufferedWriter.write("\t\t\t\t\t\t" + L1 + "," + B1 +"\n");
             bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
                     "\t\t\t\t\t</Point>\n" +
                     "\t\t\t\t</Placemark>\n");
@@ -332,8 +330,8 @@ public class GE {
                     "\t\t\t\t\t</Style>\n"  +
                     "\t\t\t\t\t<LinearRing>\n" +
                     "\t\t\t\t\t\t<coordinates>\n");
-            String line = "\t\t\t\t\t\t\t" + Double.toString(L1) + "," + Double.toString(B1) + " " +
-                    Double.toString(L2) + "," + Double.toString(B2) + "\n";
+            String line = "\t\t\t\t\t\t\t" + L1 + "," + B1 + " " +
+                    L2 + "," + B2 + "\n";
             bufferedWriter.write(line);
             bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
                     "\t\t\t\t\t</LinearRing>\n" +
@@ -348,9 +346,9 @@ public class GE {
                     "\t\t\t\t\t<LinearRing>\n" +
                     "\t\t\t\t\t\t<coordinates>\n");
             //箭头
-            String arrow = "\t\t\t\t\t\t\t" + Double.toString(arrowL1) + "," + Double.toString(arrowB1) + " " +
-                    Double.toString(L2) + "," + Double.toString(B2) + " " +
-                    Double.toString(arrowL2) + "," + Double.toString(arrowB2) + "\n";
+            String arrow = "\t\t\t\t\t\t\t" + arrowL1 + "," + arrowB1 + " " +
+                    L2 + "," + B2 + " " +
+                    arrowL2 + "," + arrowB2 + "\n";
             bufferedWriter.write(arrow);
             bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
                     "\t\t\t\t\t</LinearRing>\n" +
@@ -415,15 +413,19 @@ public class GE {
             }
             bufferedReader.close();
             fileReader.close();
+
+            //测试耗时
+            long allTime = 0;
+            long oldTime;
+
+            //测试错误点
+            int all = 0;
+            int all1 = 0;
+
             //2.读取GPS点
             fileReader = new FileReader(pointFile);
             bufferedReader = new BufferedReader(fileReader);
             String sp;
-
-            //the sign of other province
-            boolean signOther = false;
-            int numOfError = 0;
-
             //读一个处理一个
             while ((sp = bufferedReader.readLine()) != null) {
                 String []info = sp.split(" ");
@@ -436,23 +438,28 @@ public class GE {
                 //info[6]协方差暂时忽略
                 double sigVen = Double.valueOf(info[6]);
                 String ID = info[7];
+                //耗时操作
+                oldTime = System.currentTimeMillis();
                 int location = segment(L,B);
-                if (location >= 0)
-                    provinces.elementAt(location).infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID));
+                allTime += (System.currentTimeMillis() - oldTime);
+
+                if (location >= 0) {
+                    all1++;
+                    provinces.elementAt(location).infos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
+                }
                 else {
-                    //System.out.println(L + ", " + B + ": 分类发生错误！");
-                    //draw other point
-                    if (!signOther) {
-                        signOther = true;
-                        provinces.add(new Province());
-                        provinces.lastElement().name = "OutOfChina";
-                    }
-                    provinces.lastElement().infos.add(new Info(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID));
+                    all++;
+                    System.out.println(L + ", " + B + ": 分类发生错误！");
                 }
             }
-
             bufferedReader.close();
             fileReader.close();
+
+            //测试耗时
+            System.out.println(allTime);
+            System.out.println(all);
+            System.out.println(all1);
+
             //添加徽标
             bufferedWriter.write("\t\t<Folder>\n" +
                     "\t\t\t<name>LABEL</name>\n" +
@@ -489,6 +496,7 @@ public class GE {
             System.out.println("处理完成！");
             bufferedWriter.close();
             fileWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -862,7 +870,7 @@ public class GE {
 
 
 
-    public static void main(String args[]) {
+    public static void main(String [] args) {
         //用法
         String Tutorial = "NOTE!!!china.kml and kml.jar must be in the same path!\n\n" +
                 "1.create\n" +
@@ -968,9 +976,9 @@ public class GE {
                             case "-o":
                                 newFile = args[i+1];
                                 break;
-                                default:
-                                  System.out.println("输入参数有误！");
-                                  System.exit(1);
+                            default:
+                                System.out.println("输入参数有误！");
+                                System.exit(1);
                         }
                     }
                     if (newFile.equals(""))
@@ -989,9 +997,9 @@ public class GE {
                                 newFile = args[i+1];
                                 isNew = true;
                                 break;
-                                default:
-                                    System.out.println("输入参数有误!");
-                                    System.exit(1);
+                            default:
+                                System.out.println("输入参数有误!");
+                                System.exit(1);
                         }
                     }
                     ge.delete(L,B,oldFile,newFile,isNew);
@@ -1011,9 +1019,9 @@ public class GE {
                             case "-C":
                                 color = args[i+1];
                                 break;
-                                default:
-                                    System.out.println("输入参数有误！");
-                                    System.exit(1);
+                            default:
+                                System.out.println("输入参数有误！");
+                                System.exit(1);
                         }
                     }
                     ge.highLight(Double.valueOf(L),Double.valueOf(B),oldFile,true,color,newFile,isNew);
@@ -1030,9 +1038,9 @@ public class GE {
                                 newFile = args[i+1];
                                 isNew = true;
                                 break;
-                                default:
-                                    System.out.println("输入参数有误！");
-                                    System.exit(1);
+                            default:
+                                System.out.println("输入参数有误！");
+                                System.exit(1);
                         }
                     }
                     ge.highLight(Double.valueOf(L),Double.valueOf(B),oldFile,false,color,newFile,isNew);
@@ -1052,9 +1060,9 @@ public class GE {
                             case "-C":
                                 color = args[i+1];
                                 break;
-                                default:
-                                    System.out.println("输入参数有误!");
-                                    System.exit(1);
+                            default:
+                                System.out.println("输入参数有误!");
+                                System.exit(1);
                         }
                     }
                     ge.changeColor(L,B,oldFile,color,newFile,isNew);
@@ -1079,18 +1087,18 @@ public class GE {
                                 labelUrl = args[i+1];
                                 isInner = false;
                                 break;
-                                default:
-                                    System.out.println("输入参数有误！");
-                                    System.exit(1);
+                            default:
+                                System.out.println("输入参数有误！");
+                                System.exit(1);
                         }
                     }
                     ge.changeLabel(L,B,oldFile,labelUrl,isInner,newFile,isNew);
                     break;
                 case "--help":
                     System.out.println(Tutorial);
-                    default:
-                        System.out.println(Tutorial);
-                }
+                default:
+                    System.out.println(Tutorial);
             }
         }
     }
+}
