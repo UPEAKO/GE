@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  * 注意这里的颜色为aabbggrr
@@ -10,10 +11,11 @@ import java.util.regex.Pattern;
  * 868
  * 1708
  * 未进入k=0或不存在的分支
+ * 多线程可能还存在问题
  */
 public class GE {
     //存储每一个省的数据
-    private Vector<Province> provinces = new Vector<>();
+    private ArrayList<Province> provinces = new ArrayList<>();
 
     //内置Label
     private static String [] innerLables = {
@@ -22,6 +24,10 @@ public class GE {
             "http://maps.google.com/mapfiles/kml/shapes/target.png",
             "http://maps.google.com/mapfiles/kml/shapes/shaded_dot.png"
     };
+
+    //arrayList for multi thread
+    private ArrayList<Info> tempInfos = new ArrayList<>();
+    private ArrayList<Integer> splitPoints = new ArrayList<>();
 
 
     //读取边界数据
@@ -34,7 +40,7 @@ public class GE {
         boolean isName = true;
         Province tempProvince = new Province();
         boolean isWrite = false;
-        Vector<Point> tempBoundary = new Vector<>();
+        ArrayList<Point> tempBoundary = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -56,7 +62,7 @@ public class GE {
                             tempBoundary.add(new Point(Double.valueOf(XY[0]),Double.valueOf(XY[1])));
                         }
                         tempProvince.boundarys.add(tempBoundary);
-                        tempBoundary = new Vector<>();
+                        tempBoundary = new ArrayList<>();
                         isName = true;
                     }
                     if (isWrite) {
@@ -78,14 +84,14 @@ public class GE {
         //省级
         for (int i = 0; i < provinces.size(); i++) {
             //包括岛
-            Province tempProvince = provinces.elementAt(i);
+            Province tempProvince = provinces.get(i);
             for (int j = 0; j < tempProvince.boundarys.size(); j++) {
-                Vector<Point> tempBoundary = tempProvince.boundarys.elementAt(j);
+                ArrayList<Point> tempBoundary = tempProvince.boundarys.get(j);
                 //取前两点中点
-                double L1_known = tempBoundary.elementAt(0).x;
-                double B1_known = tempBoundary.elementAt(0).y;
-                double L2_known = tempBoundary.elementAt(1).x;
-                double B2_known = tempBoundary.elementAt(1).y;
+                double L1_known = tempBoundary.get(0).x;
+                double B1_known = tempBoundary.get(0).y;
+                double L2_known = tempBoundary.get(1).x;
+                double B2_known = tempBoundary.get(1).y;
                 double L2 = (L1_known + L2_known) / 2;
                 double B2 = (B1_known + B2_known) / 2;
                 double vecBaseX = L2 - L1;
@@ -98,36 +104,34 @@ public class GE {
                 for (int k = 1; k < tempBoundary.size() - 1; k++) {
                     //以当前线段为base直线判断
                     boolean isFront = false;
-                    double tX1 = tempBoundary.elementAt(k).x;
-                    double tY1 = tempBoundary.elementAt(k).y;
-                    double tX2 = tempBoundary.elementAt(k + 1).x;
-                    double tY2 = tempBoundary.elementAt(k + 1).y;
+                    double tX1 = tempBoundary.get(k).x;
+                    double tY1 = tempBoundary.get(k).y;
+                    double tX2 = tempBoundary.get(k + 1).x;
+                    double tY2 = tempBoundary.get(k + 1).y;
                     double tA = tY1 - tY2;
                     double tB = tX2 - tX1;
                     double tC = tX1 * tY2 - tX2 * tY1;
-
-                    if (Math.abs(L2 - L1) < 1.0E-20) {
-                        if ((tempBoundary.elementAt(k).x - L1) * (tempBoundary.elementAt(k + 1).x - L1) < 0)
+                    //L1L2分类
+                    if (Math.abs(B) < 1.0E-20) {
+                        if ((tempBoundary.get(k).x - L1) * (tempBoundary.get(k + 1).x - L1) < 0)
                             signTwoSide = -1;
                     }
-                    else if(Math.abs(B2 - B1) < 1.0E-20) {
-                        if ((tempBoundary.elementAt(k).y - B1) * (tempBoundary.elementAt(k + 1).y - B1) < 0)
+                    else if(Math.abs(A) < 1.0E-20) {
+                        if ((tempBoundary.get(k).y - B1) * (tempBoundary.get(k + 1).y - B1) < 0)
                             signTwoSide = -1;
                     }
                     else {
                         signTwoSide = (A * tX1 + B * tY1 + C) * (A * tX2 + B * tY2 + C);
                     }
-
-
-
-                    if (Math.abs(tX1 - tX2) < 1.0E-20) {
-                        if ((L2 - L1) * (tX1 - L1) > 0)
+                    //xy1->xy2分类
+                    if (Math.abs(tB) < 1.0E-20) {
+                        if (B * (tX1 - L1) > 0)
                             isFront = true;
-                    } else if (Math.abs(tY1 - tY2) < 1.0E-20) {
-                        if ((B2 - B1) * (tY1 - B1) > 0)
+                    } else if (Math.abs(tA) < 1.0E-20) {
+                        if (-A * (tY1 - B1) > 0)
                             isFront = true;
                     } else {
-                        double tK1 = (tY2 - tY1) / (tX2 - tX1);
+                        double tK1 = -tA / tB;
                         double tK2 = -1 / tK1;
                         double b = B1 - tK2 * L1;
                         double verticalX = -(tB * b + tC) / (tA + tB * tK2);
@@ -371,7 +375,7 @@ public class GE {
         boolean isName = true;
         Province tempProvince = new Province();
         boolean isWrite = false;
-        Vector<Point> tempBoundary = new Vector<>();
+        ArrayList<Point> tempBoundary = new ArrayList<>();
         try {
             //1.读取边界并将原数据添加到目标kml
             FileReader fileReader = new FileReader("china.kml");
@@ -401,7 +405,7 @@ public class GE {
                             tempBoundary.add(new Point(Double.valueOf(XY[0]),Double.valueOf(XY[1])));
                         }
                         tempProvince.boundarys.add(tempBoundary);
-                        tempBoundary = new Vector<>();
+                        tempBoundary = new ArrayList<>();
                         isName = true;
                     }
                     if (isWrite) {
@@ -414,14 +418,7 @@ public class GE {
             bufferedReader.close();
             fileReader.close();
 
-            //测试耗时
-            long allTime = 0;
-            long oldTime;
-
-            //测试错误点
-            int all = 0;
-            int all1 = 0;
-
+            /*
             //2.读取GPS点
             fileReader = new FileReader(pointFile);
             bufferedReader = new BufferedReader(fileReader);
@@ -438,27 +435,81 @@ public class GE {
                 //info[6]协方差暂时忽略
                 double sigVen = Double.valueOf(info[6]);
                 String ID = info[7];
-                //耗时操作
-                oldTime = System.currentTimeMillis();
                 int location = segment(L,B);
-                allTime += (System.currentTimeMillis() - oldTime);
-
                 if (location >= 0) {
-                    all1++;
-                    provinces.elementAt(location).infos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
+                    provinces.get(location).infos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
                 }
                 else {
-                    all++;
                     System.out.println(L + ", " + B + ": 分类发生错误！");
                 }
             }
             bufferedReader.close();
             fileReader.close();
+            */
 
-            //测试耗时
-            System.out.println(allTime);
-            System.out.println(all);
-            System.out.println(all1);
+            /**
+             * another script for multi thread
+             */
+            //2.读取GPS点
+            fileReader = new FileReader(pointFile);
+            bufferedReader = new BufferedReader(fileReader);
+            String sp;
+            //读一个处理一个
+            while ((sp = bufferedReader.readLine()) != null) {
+                String[] info = sp.split(" ");
+                double L = Double.valueOf(info[0]);
+                double B = Double.valueOf(info[1]);
+                double Ve = Double.valueOf(info[2]);
+                double Vn = Double.valueOf(info[3]);
+                double sigVe = Double.valueOf(info[4]);
+                double sigVn = Double.valueOf(info[5]);
+                //info[6]协方差暂时忽略
+                double sigVen = Double.valueOf(info[6]);
+                String ID = info[7];
+                tempInfos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
+            }
+            final int numOfThread = 8;
+            CountDownLatch countDownLatch = new CountDownLatch(numOfThread);
+            for (int i = 0; i < numOfThread; i++) {
+                splitPoints.add(i * tempInfos.size() / numOfThread);
+            }
+            splitPoints.add(tempInfos.size());
+            //线程类,注意这里面传入的num和countDownLatch
+            class MyThread implements Runnable {
+                private int num;
+                private CountDownLatch countDownLatch;
+                private MyThread(int num, CountDownLatch countDownLatch) {
+                    this.num = num;
+                    this.countDownLatch = countDownLatch;
+                }
+                @Override
+                public void run() {
+                    for (int i = splitPoints.get(num); i < splitPoints.get(num+1); i++) {
+                        int location = segment(tempInfos.get(i).L,tempInfos.get(i).B);
+                        if (location >= 0) {
+                            provinces.get(location).infos.add(new Info(tempInfos.get(i).L,
+                                    tempInfos.get(i).B,
+                                    tempInfos.get(i).Ve, tempInfos.get(i).Vn,
+                                    tempInfos.get(i).sigVe,
+                                    tempInfos.get(i).sigVn,
+                                    tempInfos.get(i).sigVen,
+                                    tempInfos.get(i).ID));
+                        }
+                    }
+                    //主线程等待
+                    countDownLatch.countDown();
+                }
+            }
+            //启动多个线程
+            for (int num = 0; num < numOfThread; num++) {
+                new Thread(new MyThread(num,countDownLatch)).start();
+            }
+            try {
+                //主线程等待
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             //添加徽标
             bufferedWriter.write("\t\t<Folder>\n" +
@@ -475,18 +526,18 @@ public class GE {
                     "\t\t</Folder>\n");
             //3.写文件
             for (int i = 0; i < provinces.size(); i++) {
-                if (provinces.elementAt(i).infos.size() > 0) {
+                if (provinces.get(i).infos.size() > 0) {
                     bufferedWriter.write("\t\t<Folder>\n");
-                    bufferedWriter.write("\t\t\t<name>" + provinces.elementAt(i).name + "</name>\n");
-                    for (int j = 0; j < provinces.elementAt(i).infos.size(); j++) {
-                        double L1 = provinces.elementAt(i).infos.elementAt(j).L;
-                        double B1 = provinces.elementAt(i).infos.elementAt(j).B;
-                        double Ve = provinces.elementAt(i).infos.elementAt(j).Ve;
-                        double Vn = provinces.elementAt(i).infos.elementAt(j).Vn;
-                        double sigVe = provinces.elementAt(i).infos.elementAt(j).sigVe;
-                        double sigVn = provinces.elementAt(i).infos.elementAt(j).sigVn;
-                        double sigVen = provinces.elementAt(i).infos.elementAt(j).sigVen;
-                        String ID = provinces.elementAt(i).infos.elementAt(j).ID;
+                    bufferedWriter.write("\t\t\t<name>" + provinces.get(i).name + "</name>\n");
+                    for (int j = 0; j < provinces.get(i).infos.size(); j++) {
+                        double L1 = provinces.get(i).infos.get(j).L;
+                        double B1 = provinces.get(i).infos.get(j).B;
+                        double Ve = provinces.get(i).infos.get(j).Ve;
+                        double Vn = provinces.get(i).infos.get(j).Vn;
+                        double sigVe = provinces.get(i).infos.get(j).sigVe;
+                        double sigVn = provinces.get(i).infos.get(j).sigVn;
+                        double sigVen = provinces.get(i).infos.get(j).sigVen;
+                        String ID = provinces.get(i).infos.get(j).ID;
                         write(L1,B1,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,changeColor,color,changeLabel,isInner,labelUrl);
                     }
                     bufferedWriter.write("\t\t</Folder>\n");
@@ -516,7 +567,7 @@ public class GE {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("E:/work/not_use_1/GE/provices.data"));
             System.out.println("开始反序列化");
-            provinces = (Vector<Province>) objectInputStream.readObject();
+            provinces = (ArrayList<Province>) objectInputStream.readObject();
             System.out.println("反序列化完成");
             objectInputStream.close();
         } catch (IOException e) {
@@ -530,7 +581,7 @@ public class GE {
         boolean hasNotThisPro = true;
         String oldS = "";
         if (location >= 0) {
-            String signForAdd = "<name>" + provinces.elementAt(location).name + "</name>";
+            String signForAdd = "<name>" + provinces.get(location).name + "</name>";
             Pattern pattern = Pattern.compile(signForAdd);
             Matcher matcher;
             Pattern pattern1 = Pattern.compile("</Folder>");
@@ -554,7 +605,7 @@ public class GE {
                         matcher2 = pattern2.matcher(s);
                         if (matcher1.find() && matcher2.find() && hasNotThisPro) {
                             bufferedWriter.write("\t\t<Folder>\n" +
-                                    "\t\t\t<name>" + provinces.elementAt(location).name + "</name>\n");
+                                    "\t\t\t<name>" + provinces.get(location).name + "</name>\n");
                             write(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,false,"",false,true,"");
                             bufferedWriter.write("\t\t</Folder>\n" +
                                     "\t</Document>\n" +
@@ -652,7 +703,7 @@ public class GE {
         int location = segment(L,B);
         String s;
         if (location >= 0) {
-            String signForHL = "<SimpleData name=\"NAME_1\">" + provinces.elementAt(location).name + "</SimpleData>";
+            String signForHL = "<SimpleData name=\"NAME_1\">" + provinces.get(location).name + "</SimpleData>";
             Pattern pattern = Pattern.compile(signForHL);
             Pattern pattern1 = Pattern.compile("<Placemark>");
             Matcher matcher,matcher1;
@@ -871,6 +922,9 @@ public class GE {
 
 
     public static void main(String [] args) {
+        //耗时记录
+        long oldTime = System.currentTimeMillis();
+
         //用法
         String Tutorial = "NOTE!!!china.kml and kml.jar must be in the same path!\n\n" +
                 "1.create\n" +
@@ -1100,5 +1154,8 @@ public class GE {
                     System.out.println(Tutorial);
             }
         }
+
+        //耗时输出
+        System.out.println("共耗时: " + ((System.currentTimeMillis() - oldTime) / 1000.0) + "s");
     }
 }
