@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,8 +11,6 @@ import java.util.regex.Pattern;
  * 43234
  * 868
  * 1708
- * 未进入k=0或不存在的分支
- * 多线程可能还存在问题
  */
 public class GE {
     //存储每一个省的数据
@@ -78,71 +77,41 @@ public class GE {
         }
     }
 
-
     //对一个点进行分类
     private int segment(double L1, double B1) {
+        int num;
+        Province tempProvince;
+        ArrayList<Point> tempBoundary;
         //省级
-        for (int i = 0; i < provinces.size(); i++) {
+        for (int i = provinces.size() - 1; i >= 0; i--) {
             //包括岛
-            Province tempProvince = provinces.get(i);
+            tempProvince = provinces.get(i);
             for (int j = 0; j < tempProvince.boundarys.size(); j++) {
-                ArrayList<Point> tempBoundary = tempProvince.boundarys.get(j);
-                //取前两点中点
-                double L1_known = tempBoundary.get(0).x;
-                double B1_known = tempBoundary.get(0).y;
-                double L2_known = tempBoundary.get(1).x;
-                double B2_known = tempBoundary.get(1).y;
-                double L2 = (L1_known + L2_known) / 2;
-                double B2 = (B1_known + B2_known) / 2;
-                double vecBaseX = L2 - L1;
-                double vecBaseY = B2 - B1;
-                int num = 1;
-                double A = B1 - B2;
-                double B = L2 - L1;
-                double C = L1 * B2 - L2 * B1;
-                double signTwoSide = 0;
-                for (int k = 1; k < tempBoundary.size() - 1; k++) {
-                    //以当前线段为base直线判断
-                    boolean isFront = false;
+                tempBoundary = tempProvince.boundarys.get(j);
+                num = 0;
+                for (int k = 0,len2 = tempBoundary.size() - 1; k < len2; k++) {
+                    //取竖直的射线;在左右两边;一半空间
                     double tX1 = tempBoundary.get(k).x;
-                    double tY1 = tempBoundary.get(k).y;
                     double tX2 = tempBoundary.get(k + 1).x;
-                    double tY2 = tempBoundary.get(k + 1).y;
-                    double tA = tY1 - tY2;
-                    double tB = tX2 - tX1;
-                    double tC = tX1 * tY2 - tX2 * tY1;
-                    //L1L2分类
-                    if (Math.abs(B) < 1.0E-20) {
-                        if ((tempBoundary.get(k).x - L1) * (tempBoundary.get(k + 1).x - L1) < 0)
-                            signTwoSide = -1;
-                    }
-                    else if(Math.abs(A) < 1.0E-20) {
-                        if ((tempBoundary.get(k).y - B1) * (tempBoundary.get(k + 1).y - B1) < 0)
-                            signTwoSide = -1;
-                    }
-                    else {
-                        signTwoSide = (A * tX1 + B * tY1 + C) * (A * tX2 + B * tY2 + C);
-                    }
-                    //xy1->xy2分类
-                    if (Math.abs(tB) < 1.0E-20) {
-                        if (B * (tX1 - L1) > 0)
-                            isFront = true;
-                    } else if (Math.abs(tA) < 1.0E-20) {
-                        if (-A * (tY1 - B1) > 0)
-                            isFront = true;
-                    } else {
+                    //满足左右(tX1 - L1)*(tX2 - L1) < 0
+                    if ((tX1 - L1)*(tX2 - L1) < 0) {
+                        double tY1 = tempBoundary.get(k).y;
+                        double tY2 = tempBoundary.get(k + 1).y;
+                        //满足一半空间
+                        double tA = tY1 - tY2;
+                        double tB = tX2 - tX1;
+                        double tC = tX1 * tY2 - tX2 * tY1;
                         double tK1 = -tA / tB;
                         double tK2 = -1 / tK1;
                         double b = B1 - tK2 * L1;
                         double verticalX = -(tB * b + tC) / (tA + tB * tK2);
                         double verticalY = tK2 * verticalX + b;
-                        double vecVerX = verticalX - L1;
+                        //double vecVerX = verticalX - L1;
                         double vecVerY = verticalY - B1;
-                        if (vecBaseX * vecVerX + vecBaseY * vecVerY > 0)
-                            isFront = true;
-                    }
-                    if (signTwoSide < 0 && isFront) {
-                        num++;
+                        //基础向量(0,-1)
+                        if (vecVerY < 0) {
+                            num++;
+                        }
                     }
                 }
                 if (num % 2 != 0) {
@@ -152,7 +121,6 @@ public class GE {
         }
         return -1;
     }
-
 
     private String oval(double L2,double B2,double sigVe,double sigVn,double sigVen,double signNum,String baseColor) {
         //误差椭圆
@@ -298,7 +266,7 @@ public class GE {
                     System.out.println("无此内置Label!");
                     System.exit(1);
                 } else {
-                    baseurl = baseurl.replaceAll("<href>.+</href>",innerLables[location]);
+                    baseurl = baseurl.replaceAll("<href>.+</href>",innerLables[location-1]);
                 }
             } else {
                 baseurl = baseurl.replaceAll("<href>.+</href>","<href>" + labelUrl + "</href>");
@@ -418,34 +386,6 @@ public class GE {
             bufferedReader.close();
             fileReader.close();
 
-            /*
-            //2.读取GPS点
-            fileReader = new FileReader(pointFile);
-            bufferedReader = new BufferedReader(fileReader);
-            String sp;
-            //读一个处理一个
-            while ((sp = bufferedReader.readLine()) != null) {
-                String []info = sp.split(" ");
-                double L = Double.valueOf(info[0]);
-                double B = Double.valueOf(info[1]);
-                double Ve = Double.valueOf(info[2]);
-                double Vn = Double.valueOf(info[3]);
-                double sigVe = Double.valueOf(info[4]);
-                double sigVn = Double.valueOf(info[5]);
-                //info[6]协方差暂时忽略
-                double sigVen = Double.valueOf(info[6]);
-                String ID = info[7];
-                int location = segment(L,B);
-                if (location >= 0) {
-                    provinces.get(location).infos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
-                }
-                else {
-                    System.out.println(L + ", " + B + ": 分类发生错误！");
-                }
-            }
-            bufferedReader.close();
-            fileReader.close();
-            */
 
             /**
              * another script for multi thread
@@ -487,6 +427,7 @@ public class GE {
                     for (int i = splitPoints.get(num); i < splitPoints.get(num+1); i++) {
                         int location = segment(tempInfos.get(i).L,tempInfos.get(i).B);
                         if (location >= 0) {
+                            //多个线程同时向arrayList添加元素冲突;故将infos改为vector存储
                             provinces.get(location).infos.add(new Info(tempInfos.get(i).L,
                                     tempInfos.get(i).B,
                                     tempInfos.get(i).Ve, tempInfos.get(i).Vn,
@@ -500,6 +441,10 @@ public class GE {
                     countDownLatch.countDown();
                 }
             }
+
+
+            long old = System.currentTimeMillis();
+
             //启动多个线程
             for (int num = 0; num < numOfThread; num++) {
                 new Thread(new MyThread(num,countDownLatch)).start();
@@ -511,6 +456,9 @@ public class GE {
                 e.printStackTrace();
             }
 
+
+            System.out.println("segment: " + (System.currentTimeMillis() - old));
+
             //添加徽标
             bufferedWriter.write("\t\t<Folder>\n" +
                     "\t\t\t<name>LABEL</name>\n" +
@@ -519,9 +467,9 @@ public class GE {
                     "\t\t\t\t<Icon>\n" +
                     "\t\t\t\t\t<href>http://www.wypmk.xyz/other/sign.png</href>\n" +
                     "\t\t\t\t</Icon>\n" +
-                    "\t\t\t\t<overlayXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<screenXY x=\"0.0\" y=\"0.5\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<size x=\"100\" y=\"100\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t\t\t<overlayXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<screenXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<size x=\"200\" y=\"176\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
                     "\t\t\t</ScreenOverlay>\n" +
                     "\t\t</Folder>\n");
             //3.写文件
@@ -554,28 +502,6 @@ public class GE {
     }
 
     private void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile, String newFile) {
-        /*
-        //provinces序列化测试
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("E:/work/not_use_1/GE/provices.data"));
-            objectOutputStream.writeObject(provinces);
-            objectOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //provinces反序列化测试
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("E:/work/not_use_1/GE/provices.data"));
-            System.out.println("开始反序列化");
-            provinces = (ArrayList<Province>) objectInputStream.readObject();
-            System.out.println("反序列化完成");
-            objectInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        */
         getBoundary();
         int location = segment(L,B);
         boolean hasNotThisPro = true;
@@ -918,7 +844,6 @@ public class GE {
             e.printStackTrace();
         }
     }
-
 
 
     public static void main(String [] args) {
