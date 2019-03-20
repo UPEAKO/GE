@@ -8,12 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36404cba-524f-4462-a809-76f19ca6948a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GE_jar/GE.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GE_jar/GE.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/GE$1MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/GE$1MyThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/GE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/GE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Province.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Province.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Province.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Province.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Plot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Plot.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,180 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="124" column="82" lean-forward="true" selection-start-line="124" selection-start-column="82" selection-end-line="124" selection-end-column="82" />
-              <folding>
-                <element signature="docComment;class#GE#0" />
-                <element signature="method#getBoundary#0;class#GE#0" />
-                <element signature="e#1362#2796#0" />
-                <element signature="e#1558#2750#1" />
-                <element signature="e#1588#1823#1" />
-                <element signature="e#1680#1805#1" />
-                <element signature="e#1829#2736#1" />
-                <element signature="e#1927#2512#1" />
-                <element signature="e#2132#2327#1" />
-                <element signature="e#2546#2718#1" />
-                <element signature="e#2819#2863#0" />
-                <element signature="method#segment#0;class#GE#0" />
-                <element signature="e#3090#4652#1" />
-                <element signature="e#3223#4642#1" />
-                <element signature="e#3390#4544#1" />
-                <element signature="e#3651#4526#1" />
-                <element signature="e#4442#4504#1" />
-                <element signature="e#4579#4628#1" />
-                <element signature="method#oval#0;class#GE#0" />
-                <element signature="e#5013#5428#1" />
-                <element signature="e#5056#5125#0" />
-                <element signature="e#6524#7226#1" />
-                <element signature="e#6650#6872#1" />
-                <element signature="e#6878#7100#1" />
-                <element signature="e#7278#7981#1" />
-                <element signature="e#7405#7627#1" />
-                <element signature="e#7633#7855#1" />
-                <element signature="e#8033#8737#1" />
-                <element signature="e#8161#8383#1" />
-                <element signature="e#8389#8611#1" />
-                <element signature="e#8790#9493#1" />
-                <element signature="e#8917#9139#1" />
-                <element signature="e#9145#9367#1" />
-                <element signature="method#write#0;class#GE#0" />
-                <element signature="e#11154#11676#1" />
-                <element signature="e#11181#11548#1" />
-                <element signature="e#11307#11416#1" />
-                <element signature="e#11422#11534#1" />
-                <element signature="e#11554#11666#1" />
-                <element signature="e#11691#14388#0" />
-                <element signature="e#14411#14455#0" />
-                <element signature="method#createNew#0;class#GE#0" />
-                <element signature="e#15132#22232#0" />
-                <element signature="e#15506#16949#1" />
-                <element signature="e#15687#15758#1" />
-                <element signature="e#15787#16022#1" />
-                <element signature="e#15879#16004#1" />
-                <element signature="e#16028#16935#1" />
-                <element signature="e#16126#16711#1" />
-                <element signature="e#16331#16526#1" />
-                <element signature="e#16745#16917#1" />
-                <element signature="e#17341#17933#1" />
-                <element signature="e#18100#18184#1" />
-                <element signature="class#18289:19576" />
-                <element signature="method#MyThread#0;class#18289:19576" />
-                <element signature="method#run#0;class#18289:19576" />
-                <element signature="e#18751#19468#1" />
-                <element signature="e#18883#19446#1" />
-                <element signature="e#19708#19793#1" />
-                <element signature="e#19810#19889#0" />
-                <element signature="e#19921#19973#0" />
-                <element signature="e#20938#22051#1" />
-                <element signature="e#20995#22037#1" />
-                <element signature="e#21229#21958#1" />
-                <element signature="e#22255#22299#0" />
-                <element signature="method#addOnNew#0;class#GE#0" />
-                <element signature="e#22608#24848#1" />
-                <element signature="e#23005#24763#0" />
-                <element signature="e#23361#24552#1" />
-                <element signature="e#23453#23681#1" />
-                <element signature="e#23687#24504#1" />
-                <element signature="e#23885#24393#1" />
-                <element signature="e#24786#24838#0" />
-                <element signature="method#addOnOld#0;class#GE#0" />
-                <element signature="e#25191#25243#1" />
-                <element signature="method#delete#0;class#GE#0" />
-                <element signature="e#25794#27625#0" />
-                <element signature="e#26005#26056#1" />
-                <element signature="e#26255#27211#1" />
-                <element signature="e#26387#26525#1" />
-                <element signature="e#26567#26902#1" />
-                <element signature="e#26686#26845#1" />
-                <element signature="e#26740#26823#1" />
-                <element signature="e#26924#27120#1" />
-                <element signature="e#27126#27197#1" />
-                <element signature="e#27433#27615#1" />
-                <element signature="e#27533#27601#1" />
-                <element signature="e#27648#27692#0" />
-                <element signature="method#highLight#0;class#GE#0" />
-                <element signature="e#27944#31570#1" />
-                <element signature="e#28366#31485#0" />
-                <element signature="e#28843#30749#1" />
-                <element signature="e#28879#30650#1" />
-                <element signature="e#29036#29343#1" />
-                <element signature="e#29089#29180#1" />
-                <element signature="e#29369#30424#1" />
-                <element signature="e#29500#30032#1" />
-                <element signature="e#29555#29760#1" />
-                <element signature="e#29766#30002#1" />
-                <element signature="e#30066#30243#1" />
-                <element signature="e#30460#30535#1" />
-                <element signature="e#30541#30628#1" />
-                <element signature="e#30929#31118#1" />
-                <element signature="e#31140#31471#1" />
-                <element signature="e#31244#31453#1" />
-                <element signature="e#31508#31560#0" />
-                <element signature="method#changeColor#0;class#GE#0" />
-                <element signature="e#31929#33765#0" />
-                <element signature="e#32374#33203#1" />
-                <element signature="e#32458#33112#1" />
-                <element signature="e#32580#33067#1" />
-                <element signature="e#32683#32952#1" />
-                <element signature="e#32958#33045#1" />
-                <element signature="e#33118#33189#1" />
-                <element signature="e#33284#33347#1" />
-                <element signature="e#33571#33755#1" />
-                <element signature="e#33671#33741#1" />
-                <element signature="e#33788#33832#0" />
-                <element signature="method#changeLabel#0;class#GE#0" />
-                <element signature="e#34029#34344#1" />
-                <element signature="e#34216#34334#1" />
-                <element signature="e#34783#37286#0" />
-                <element signature="e#35228#36868#1" />
-                <element signature="e#35324#36777#1" />
-                <element signature="e#35435#36759#1" />
-                <element signature="e#35571#36210#1" />
-                <element signature="e#35674#36105#1" />
-                <element signature="e#35796#36006#1" />
-                <element signature="e#36216#36737#1" />
-                <element signature="e#36327#36653#1" />
-                <element signature="e#36438#36537#1" />
-                <element signature="e#36783#36854#1" />
-                <element signature="e#37092#37276#1" />
-                <element signature="e#37192#37262#1" />
-                <element signature="e#37309#37353#0" />
-                <element signature="method#main#0;class#GE#0" />
-                <element signature="e#38828#38909#1" />
-                <element signature="e#39018#39099#1" />
-                <element signature="e#39139#40799#1" />
-                <element signature="e#39167#39261#1" />
-                <element signature="e#39305#39710#1" />
-                <element signature="e#39779#40193#1" />
-                <element signature="e#40263#40677#1" />
-                <element signature="e#40695#40789#1" />
-                <element signature="e#40813#47609#1" />
-                <element signature="e#41218#47599#0" />
-                <element signature="e#41475#42552#1" />
-                <element signature="e#41578#42530#0" />
-                <element signature="e#42938#43487#1" />
-                <element signature="e#42981#43465#0" />
-                <element signature="e#43717#44395#1" />
-                <element signature="e#43760#44373#0" />
-                <element signature="e#44671#45219#1" />
-                <element signature="e#44714#45197#0" />
-                <element signature="e#45495#46172#1" />
-                <element signature="e#45538#46150#0" />
-                <element signature="e#46413#47322#1" />
-                <element signature="e#46456#47300#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Province.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="2041">
+              <caret line="106" column="59" selection-start-line="106" selection-start-column="59" selection-end-line="106" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -208,8 +31,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Plot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+            <state relative-caret-position="261">
+              <caret line="151" column="43" lean-forward="true" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Province.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -271,6 +103,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -288,14 +121,13 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552923405747" />
-    <property name="last_opened_file_path" value="$USER_HOME$/work/temp/Test.java" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553095161451" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="SDKs" />
@@ -321,7 +153,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="GE" />
       <module name="GE" />
-      <option name="PROGRAM_PARAMETERS" value="-p $USER_HOME$/work/GE/GE_TST.txt" />
+      <option name="PROGRAM_PARAMETERS" value="-p E:\work\not_use_1\GE\GE_TST.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -333,6 +165,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.GE" />
+      <item itemvalue="Application.Plot" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Plot" />
@@ -357,16 +193,17 @@
       <workItem from="1551580997524" duration="4292000" />
       <workItem from="1551612512366" duration="4166000" />
       <workItem from="1552910757741" duration="12741000" />
+      <workItem from="1553083318967" duration="7559000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57782000" />
+    <option name="totallyTimeSpent" value="65341000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17376868" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17627347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -375,7 +212,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.475162" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24220963" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -433,16 +270,8 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/test.java" />
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Runnable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/work/GE/china.kml">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Runnable.class" />
+    <entry file="file://$USER_HOME$/work/GE/china.kml" />
     <entry file="file://$PROJECT_DIR$/src/MyThread.java" />
     <entry file="file://$PROJECT_DIR$/src/Info.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -458,31 +287,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/ArrayList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="190" column="13" selection-start-line="190" selection-start-column="13" selection-end-line="190" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Vector.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432">
-          <caret line="313" column="9" lean-forward="true" selection-start-line="313" selection-start-column="9" selection-end-line="313" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/work/temp/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="55" column="50" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/ArrayList.class" />
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Vector.class" />
+    <entry file="file://$USER_HOME$/work/temp/Test.java" />
     <entry file="file://$PROJECT_DIR$/src/Province.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+        <state relative-caret-position="200">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -491,178 +302,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="124" column="82" lean-forward="true" selection-start-line="124" selection-start-column="82" selection-end-line="124" selection-end-column="82" />
-          <folding>
-            <element signature="docComment;class#GE#0" />
-            <element signature="method#getBoundary#0;class#GE#0" />
-            <element signature="e#1362#2796#0" />
-            <element signature="e#1558#2750#1" />
-            <element signature="e#1588#1823#1" />
-            <element signature="e#1680#1805#1" />
-            <element signature="e#1829#2736#1" />
-            <element signature="e#1927#2512#1" />
-            <element signature="e#2132#2327#1" />
-            <element signature="e#2546#2718#1" />
-            <element signature="e#2819#2863#0" />
-            <element signature="method#segment#0;class#GE#0" />
-            <element signature="e#3090#4652#1" />
-            <element signature="e#3223#4642#1" />
-            <element signature="e#3390#4544#1" />
-            <element signature="e#3651#4526#1" />
-            <element signature="e#4442#4504#1" />
-            <element signature="e#4579#4628#1" />
-            <element signature="method#oval#0;class#GE#0" />
-            <element signature="e#5013#5428#1" />
-            <element signature="e#5056#5125#0" />
-            <element signature="e#6524#7226#1" />
-            <element signature="e#6650#6872#1" />
-            <element signature="e#6878#7100#1" />
-            <element signature="e#7278#7981#1" />
-            <element signature="e#7405#7627#1" />
-            <element signature="e#7633#7855#1" />
-            <element signature="e#8033#8737#1" />
-            <element signature="e#8161#8383#1" />
-            <element signature="e#8389#8611#1" />
-            <element signature="e#8790#9493#1" />
-            <element signature="e#8917#9139#1" />
-            <element signature="e#9145#9367#1" />
-            <element signature="method#write#0;class#GE#0" />
-            <element signature="e#11154#11676#1" />
-            <element signature="e#11181#11548#1" />
-            <element signature="e#11307#11416#1" />
-            <element signature="e#11422#11534#1" />
-            <element signature="e#11554#11666#1" />
-            <element signature="e#11691#14388#0" />
-            <element signature="e#14411#14455#0" />
-            <element signature="method#createNew#0;class#GE#0" />
-            <element signature="e#15132#22232#0" />
-            <element signature="e#15506#16949#1" />
-            <element signature="e#15687#15758#1" />
-            <element signature="e#15787#16022#1" />
-            <element signature="e#15879#16004#1" />
-            <element signature="e#16028#16935#1" />
-            <element signature="e#16126#16711#1" />
-            <element signature="e#16331#16526#1" />
-            <element signature="e#16745#16917#1" />
-            <element signature="e#17341#17933#1" />
-            <element signature="e#18100#18184#1" />
-            <element signature="class#18289:19576" />
-            <element signature="method#MyThread#0;class#18289:19576" />
-            <element signature="method#run#0;class#18289:19576" />
-            <element signature="e#18751#19468#1" />
-            <element signature="e#18883#19446#1" />
-            <element signature="e#19708#19793#1" />
-            <element signature="e#19810#19889#0" />
-            <element signature="e#19921#19973#0" />
-            <element signature="e#20938#22051#1" />
-            <element signature="e#20995#22037#1" />
-            <element signature="e#21229#21958#1" />
-            <element signature="e#22255#22299#0" />
-            <element signature="method#addOnNew#0;class#GE#0" />
-            <element signature="e#22608#24848#1" />
-            <element signature="e#23005#24763#0" />
-            <element signature="e#23361#24552#1" />
-            <element signature="e#23453#23681#1" />
-            <element signature="e#23687#24504#1" />
-            <element signature="e#23885#24393#1" />
-            <element signature="e#24786#24838#0" />
-            <element signature="method#addOnOld#0;class#GE#0" />
-            <element signature="e#25191#25243#1" />
-            <element signature="method#delete#0;class#GE#0" />
-            <element signature="e#25794#27625#0" />
-            <element signature="e#26005#26056#1" />
-            <element signature="e#26255#27211#1" />
-            <element signature="e#26387#26525#1" />
-            <element signature="e#26567#26902#1" />
-            <element signature="e#26686#26845#1" />
-            <element signature="e#26740#26823#1" />
-            <element signature="e#26924#27120#1" />
-            <element signature="e#27126#27197#1" />
-            <element signature="e#27433#27615#1" />
-            <element signature="e#27533#27601#1" />
-            <element signature="e#27648#27692#0" />
-            <element signature="method#highLight#0;class#GE#0" />
-            <element signature="e#27944#31570#1" />
-            <element signature="e#28366#31485#0" />
-            <element signature="e#28843#30749#1" />
-            <element signature="e#28879#30650#1" />
-            <element signature="e#29036#29343#1" />
-            <element signature="e#29089#29180#1" />
-            <element signature="e#29369#30424#1" />
-            <element signature="e#29500#30032#1" />
-            <element signature="e#29555#29760#1" />
-            <element signature="e#29766#30002#1" />
-            <element signature="e#30066#30243#1" />
-            <element signature="e#30460#30535#1" />
-            <element signature="e#30541#30628#1" />
-            <element signature="e#30929#31118#1" />
-            <element signature="e#31140#31471#1" />
-            <element signature="e#31244#31453#1" />
-            <element signature="e#31508#31560#0" />
-            <element signature="method#changeColor#0;class#GE#0" />
-            <element signature="e#31929#33765#0" />
-            <element signature="e#32374#33203#1" />
-            <element signature="e#32458#33112#1" />
-            <element signature="e#32580#33067#1" />
-            <element signature="e#32683#32952#1" />
-            <element signature="e#32958#33045#1" />
-            <element signature="e#33118#33189#1" />
-            <element signature="e#33284#33347#1" />
-            <element signature="e#33571#33755#1" />
-            <element signature="e#33671#33741#1" />
-            <element signature="e#33788#33832#0" />
-            <element signature="method#changeLabel#0;class#GE#0" />
-            <element signature="e#34029#34344#1" />
-            <element signature="e#34216#34334#1" />
-            <element signature="e#34783#37286#0" />
-            <element signature="e#35228#36868#1" />
-            <element signature="e#35324#36777#1" />
-            <element signature="e#35435#36759#1" />
-            <element signature="e#35571#36210#1" />
-            <element signature="e#35674#36105#1" />
-            <element signature="e#35796#36006#1" />
-            <element signature="e#36216#36737#1" />
-            <element signature="e#36327#36653#1" />
-            <element signature="e#36438#36537#1" />
-            <element signature="e#36783#36854#1" />
-            <element signature="e#37092#37276#1" />
-            <element signature="e#37192#37262#1" />
-            <element signature="e#37309#37353#0" />
-            <element signature="method#main#0;class#GE#0" />
-            <element signature="e#38828#38909#1" />
-            <element signature="e#39018#39099#1" />
-            <element signature="e#39139#40799#1" />
-            <element signature="e#39167#39261#1" />
-            <element signature="e#39305#39710#1" />
-            <element signature="e#39779#40193#1" />
-            <element signature="e#40263#40677#1" />
-            <element signature="e#40695#40789#1" />
-            <element signature="e#40813#47609#1" />
-            <element signature="e#41218#47599#0" />
-            <element signature="e#41475#42552#1" />
-            <element signature="e#41578#42530#0" />
-            <element signature="e#42938#43487#1" />
-            <element signature="e#42981#43465#0" />
-            <element signature="e#43717#44395#1" />
-            <element signature="e#43760#44373#0" />
-            <element signature="e#44671#45219#1" />
-            <element signature="e#44714#45197#0" />
-            <element signature="e#45495#46172#1" />
-            <element signature="e#45538#46150#0" />
-            <element signature="e#46413#47322#1" />
-            <element signature="e#46456#47300#0" />
-          </folding>
+        <state relative-caret-position="2041">
+          <caret line="106" column="59" selection-start-line="106" selection-start-column="59" selection-end-line="106" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Plot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="261">
+          <caret line="151" column="43" lean-forward="true" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
         </state>
       </provider>
     </entry>
