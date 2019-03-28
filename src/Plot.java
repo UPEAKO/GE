@@ -272,8 +272,7 @@ public class Plot {
             ArrayList<Point> tempBoundary;
             //二级地块内的点
             Vector<Info> tempPoints;
-            String s1 = "\t\t\t<Style id=\"polygon\">\n" +
-                    "\t\t\t\t<PolyStyle>\n" +
+            String s1 = "\t\t\t\t<PolyStyle>\n" +
                     "\t\t\t\t\t<color>ffb48246</color>\n" +
                     "\t\t\t\t\t<fill>0</fill>\n" +
                     "\t\t\t\t</PolyStyle>\n" +
@@ -299,23 +298,7 @@ public class Plot {
                         "\t\t<name>");
                 bufferedWriter.write(plots.get(i).name);
                 bufferedWriter.write("</name>\n");
-                //一级边界
-                bufferedWriter.write("\t\t<Placemark>\n" +
-                        "\t\t\t<name>");
-                bufferedWriter.write(plots.get(i).name);
-                bufferedWriter.write("_boundary</name>\n");
-                bufferedWriter.write(s1);
-                tempBoundary = plots.get(i).boundarys;
-                StringBuffer stringBuffer = new StringBuffer();
-                for (int j = 0,len2 = tempBoundary.size(); j < len2; j++) {
-                    stringBuffer.append(tempBoundary.get(j).x);
-                    stringBuffer.append(',');
-                    stringBuffer.append(tempBoundary.get(j).y);
-                    stringBuffer.append(' ');
-                }
-                bufferedWriter.write(stringBuffer.toString());
-                bufferedWriter.write(s2);
-                //二级边界
+                //二级点及边界
                 for (int j = 0,len3 = plots.get(i).polygon2s.size(); j < len3; j++) {
                     //二级地块内的所有点
                     bufferedWriter.write("\t\t<Folder>\n" +
@@ -341,7 +324,8 @@ public class Plot {
                     bufferedWriter.write("\t\t<Placemark>\n" +
                             "\t\t\t<name>");
                     bufferedWriter.write(plots.get(i).polygon2s.get(j).name);
-                    bufferedWriter.write("_boundary</name>\n");
+                    bufferedWriter.write("_boundary</name>\n" +
+                            "\t\t\t<Style id=\"polygon2\">\n");
                     bufferedWriter.write(s1);
                     StringBuffer stringBuffer1 = new StringBuffer();
                     for (int k = 0,len4 = tempBoundary.size(); k < len4; k++) {
@@ -353,6 +337,23 @@ public class Plot {
                     bufferedWriter.write(stringBuffer1.toString());
                     bufferedWriter.write(s2);
                 }
+                //一级边界
+                bufferedWriter.write("\t\t<Placemark>\n" +
+                        "\t\t\t<name>");
+                bufferedWriter.write(plots.get(i).name);
+                bufferedWriter.write("_boundary</name>\n" +
+                        "\t\t\t<Style id=\"polygon1\">\n");
+                bufferedWriter.write(s1);
+                tempBoundary = plots.get(i).boundarys;
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int j = 0,len2 = tempBoundary.size(); j < len2; j++) {
+                    stringBuffer.append(tempBoundary.get(j).x);
+                    stringBuffer.append(',');
+                    stringBuffer.append(tempBoundary.get(j).y);
+                    stringBuffer.append(' ');
+                }
+                bufferedWriter.write(stringBuffer.toString());
+                bufferedWriter.write(s2);
                 bufferedWriter.write("\t</Folder>\n");
             }
             bufferedWriter.write("</Document>\n" +
@@ -521,6 +522,11 @@ public class Plot {
                     "\t\t\t\t<name>" + ID + "</name>\n");
             //起点图标
             bufferedWriter.write("\t\t\t\t<Placemark>\n" +
+                    "\t\t\t\t\t<Point>\n" +
+                    "\t\t\t\t\t\t<coordinates>\n");
+            bufferedWriter.write("\t\t\t\t\t\t" + L1 + "," + B1 +"\n");
+            bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
+                    "\t\t\t\t\t</Point>\n" +
                     "\t\t\t\t\t<Style id=\"point\">\n" +
                     "\t\t\t\t\t\t<IconStyle>\n" +
                     "\t\t\t\t\t\t\t<Icon>\n" +
@@ -528,11 +534,6 @@ public class Plot {
                     "\t\t\t\t\t\t\t</Icon>\n" +
                     "\t\t\t\t\t\t</IconStyle>\n" +
                     "\t\t\t\t\t</Style>\n" +
-                    "\t\t\t\t\t<Point>\n" +
-                    "\t\t\t\t\t\t<coordinates>\n");
-            bufferedWriter.write("\t\t\t\t\t\t" + L1 + "," + B1 +"\n");
-            bufferedWriter.write("\t\t\t\t\t\t</coordinates>\n" +
-                    "\t\t\t\t\t</Point>\n" +
                     "\t\t\t\t</Placemark>\n");
             //线段
             bufferedWriter.write("\t\t\t\t<Placemark>\n" +
@@ -610,6 +611,7 @@ public class Plot {
         }
     }
 
+    //直接移植
     private void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile) {
         String tempFile = oldFile+".temp";
         addOnNew(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,oldFile,tempFile);
@@ -618,6 +620,7 @@ public class Plot {
         }
     }
 
+    //直接移植
     private void delete(boolean findByName,String L,String B,String oldFile,String newFile,boolean isNew) {
         //每次将一个完整的箭头存储起来，当符合条件，不写入新文件，否则写入新文件
         String sign = L;
@@ -682,14 +685,15 @@ public class Plot {
     }
 
 
-    private void highLight(boolean findByName,String L,String B,String oldFile,boolean isHighLight,String color,String newFile,boolean isNew) {
+    private void highLight(boolean findByName,String L,String B,String oldFile,boolean isHighLight,String color,String newFile,boolean isNew,boolean isBlock2) {
         String sign = "<name>" + L + "</name>";
         String s;
         if (!findByName)
             sign = L+","+B;
         Pattern pattern = Pattern.compile(sign);
-        Pattern pattern1 = Pattern.compile("<Style id=\"polygon\">");
-        Matcher matcher,matcher1;
+        Pattern pattern1 = Pattern.compile("<Style id=\"polygon1\">");
+        Pattern pattern2 = Pattern.compile("<Style id=\"polygon2\">");
+        Matcher matcher,matcher1or2;
         try {
             FileReader fileReader = new FileReader(oldFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -704,8 +708,11 @@ public class Plot {
                 if (!hasDone && matcher.find()) {
                     bufferedWriter.write(s+"\n");
                     while ((s = bufferedReader.readLine()) != null) {
-                        matcher1 = pattern1.matcher(s);
-                        if (matcher1.find()) {
+                        if (isBlock2)
+                            matcher1or2 = pattern2.matcher(s);
+                        else
+                            matcher1or2 = pattern1.matcher(s);
+                        if (matcher1or2.find()) {
                             if (isHighLight) {
                                 jumpNum = 3;
                                 bufferedWriter.write(s+"\n" +
@@ -758,6 +765,7 @@ public class Plot {
         }
     }
 
+    //直接移植
     private void changeColor(boolean findByName,String L,String B,String oldFile,String color,String newFile,boolean isNew) {
         String s;
         String signF = L;
@@ -817,8 +825,8 @@ public class Plot {
         }
     }
 
-    //改变GPS点的图标
-    private void changeLabel(String L,String B,String oldFile,String label,boolean inner,String newFile,boolean isNew) {
+    //直接移植被修改后的write与oval函数后也可直接移植
+    private void changeLabel(boolean findByName,String L,String B,String oldFile,String label,boolean inner,String newFile,boolean isNew) {
         String labelUrl = label;
         if (inner) {
             int location = Integer.valueOf(label);
@@ -829,70 +837,59 @@ public class Plot {
                 System.exit(1);
             }
         }
-        //改变labelurl
+        String sign = "<name>" + L + "</name>";
         String s;
-        Pattern pattern = Pattern.compile("<Style id=\"point\">");
-        Pattern pattern1 = Pattern.compile("<href>.+</href>");
-        Pattern pattern2 = Pattern.compile(L + "," + B);
-        Pattern pattern3 = Pattern.compile("</coordinates>");
-        Matcher matcher,matcher1,matcher2,matcher3;
-        ArrayList<String> temps = new ArrayList<>();
-        boolean hasDone = false;
+        if (!findByName)
+            sign = L+","+B;
+        Pattern pattern = Pattern.compile(sign);
+        Pattern pattern1 = Pattern.compile("<Style id=\"point\">");
+        Matcher matcher,matcher1;
         try {
             FileReader fileReader = new FileReader(oldFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String tempFile = oldFile + ".temp";
-            if (isNew)
-                tempFile = newFile;
-            FileWriter fileWriter = new FileWriter(tempFile);
+            if (!isNew)
+                newFile = oldFile+".temp";
+            FileWriter fileWriter = new FileWriter(newFile);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            boolean hasDone = false;
+            int jumpNum = 0;
             while ((s = bufferedReader.readLine()) != null) {
                 matcher = pattern.matcher(s);
-                if (matcher.find() && !hasDone) {
-                    temps.add(s + "\n");
+                if (!hasDone && matcher.find()) {
+                    bufferedWriter.write(s+"\n");
                     while ((s = bufferedReader.readLine()) != null) {
-                        matcher2 = pattern2.matcher(s);
-                        //L,B对应时
-                        if (matcher2.find()) {
-                            temps.add(s + "\n");
-                            for (String each:temps) {
-                                matcher1 = pattern1.matcher(each);
-                                if (matcher1.find()) {
-                                    each = each.replaceAll("<href>.+</href>","<href>" + labelUrl + "</href>");
-                                    bufferedWriter.write(each);
-                                } else
-                                    bufferedWriter.write(each);
-                            }
+                        matcher1 = pattern1.matcher(s);
+                        if (matcher1.find()) {
+                            jumpNum = 3;
+                            bufferedWriter.write(s+"\n" +
+                                    "\t\t\t\t\t\t<IconStyle>\n" +
+                                    "\t\t\t\t\t\t\t<Icon>\n" +
+                                    "\t\t\t\t\t\t\t\t<href>" + labelUrl + "</href>\n");
                             hasDone = true;
                             break;
-                        } else {
-                            matcher3 = pattern3.matcher(s);
-                            if (matcher3.find()) {
-                                temps.add(s + "\n");
-                                for (String each:temps) {
-                                    bufferedWriter.write(each);
-                                }
-                                temps.clear();
-                                break;
-                            } else
-                                temps.add(s + "\n");
+                        }
+                        else {
+                            bufferedWriter.write(s+"\n");
                         }
                     }
                 } else {
-                    bufferedWriter.write(s + "\n");
+                    if (jumpNum > 0)
+                        jumpNum--;
+                    else
+                        bufferedWriter.write(s+"\n");
                 }
             }
-            bufferedReader.close();
-            bufferedWriter.close();
-            fileReader.close();
-            fileWriter.close();
             if (isNew)
                 System.out.println("修改图标成功！");
             else {
-                if (new File(oldFile).delete() && new File(tempFile).renameTo(new File(oldFile))) {
+                if (new File(oldFile).delete() && new File(newFile).renameTo(new File(oldFile))) {
                     System.out.println("修改图标成功！");
                 }
             }
+            bufferedReader.close();
+            fileReader.close();
+            bufferedWriter.close();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -910,8 +907,8 @@ public class Plot {
                 "");
         //plot.addOnNew(131.5,41.5,3.5,4.5,0.3,0.4,0.5,"newPoint","/home/ubd/work/GE/GE_TST-1.kml","/home/ubd/work/GE/GE_TST-2.kml");
         //plot.delete(false,"131.5","41.5","/home/ubd/work/GE/GE_TST-2.kml","/home/ubd/work/GE/GE_TST-3.kml",true);
-        //plot.highLight(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml",false,"ffff0000","/home/ubd/work/GE/GE_TST-3.kml",false);
+        //plot.highLight(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml",true,"ffff0000","/home/ubd/work/GE/GE_TST-3.kml",true,true);
         //plot.changeColor(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml","ffff0000","",false);
-        //plot.changeLabel(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml","2",true,"",false);
+        plot.changeLabel(false,"131.5","41.5","/home/ubd/work/GE/GE_TST-2.kml","3",true,"/home/ubd/work/GE/GE_TST-3.kml",true);
     }
 }
