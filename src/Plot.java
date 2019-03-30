@@ -1,31 +1,14 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.*;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.SplittableRandom;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Plot {
-    //需要先定义好各个地块的边界线段连接关系及其名称;
-    //即直接指定各线段的起始序号;
-    //规则添加到CN-block.dat末尾,待所有点都读进内存(可随机读取了),然后按照了规则将边界存入相应的数据结构中
-    //getBoundary function is VIP
-    //规则添加示例
-    //eg:(规则前面添加读取点位结束标志,eg:#,代替(s = bufferedReader.readLine()) != null--->!(s = bufferedReader.readLine()).equals("###")
-    //一级地块(只有一行)
-    //13 0 50;0 45 0(解释:13i,0j,50j)
-    //紧接着一级地块相应的二级地块(每个二级地块一行)
-    //13 0 50;0 45 0
-    //13 0 50;0 45 0
-    //每个地块
-    //数据结构间分割符号待定
 
-    //读取完成后即进行分类操作,注意暂时不考虑一级地块(一级地块边界只准备用来全局高亮),点实际在各个二级地块中,这与province不同
-
-    //内置Label
+class Plot {
+    //内置icon
     private static String [] innerLables = {
             "http://www.wypmk.xyz/other/cug.png",
             "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png",
@@ -39,9 +22,12 @@ public class Plot {
     //地块边界及点
     private ArrayList<Polygon1> plots = new ArrayList<>();
 
-    private void getBoundary() {
+    /**
+     * 获取边界
+     */
+    void getBoundary() {
         ArrayList< ArrayList<Point> > boundarys = new ArrayList<>();
-        File file = new File("/home/ubd/work/GE/CN-block.dat");
+        File file = new File("CN-block.dat");
         String s;
         try {
             FileReader fileReader = new FileReader(file);
@@ -140,6 +126,12 @@ public class Plot {
         }
     }
 
+    /**
+     * 对每一个点分类
+     * @param L1 经度
+     * @param B1 纬度
+     * @return 所在的地块
+     */
     private int[] segment(double L1, double B1) {
         int num;
         Polygon1 tempPolygon1;
@@ -160,20 +152,24 @@ public class Plot {
                     if ((tX1 - L1)*(tX2 - L1) < 0) {
                         double tY1 = boundary2.get(k).y;
                         double tY2 = boundary2.get(k + 1).y;
-                        //满足一半空间
                         double tA = tY1 - tY2;
-                        double tB = tX2 - tX1;
-                        double tC = tX1 * tY2 - tX2 * tY1;
-                        double tK1 = -tA / tB;
-                        double tK2 = -1 / tK1;
-                        double b = B1 - tK2 * L1;
-                        double verticalX = -(tB * b + tC) / (tA + tB * tK2);
-                        double verticalY = tK2 * verticalX + b;
-                        //double vecVerX = verticalX - L1;
-                        double vecVerY = verticalY - B1;
-                        //基础向量(0,-1)
-                        if (vecVerY < 0) {
-                            num++;
+                        //分为k=0与k!=0讨论满足射线的一半空间
+                        if (Math.abs(tA) < 1.0E-15) {
+                            if (tY1 < B1)
+                                num++;
+                        } else {
+                            double tB = tX2 - tX1;
+                            double tC = tX1 * tY2 - tX2 * tY1;
+                            double tK1 = -tA / tB;
+                            double tK2 = -1 / tK1;
+                            double b = B1 - tK2 * L1;
+                            double verticalX = -(tB * b + tC) / (tA + tB * tK2);
+                            double verticalY = tK2 * verticalX + b;
+                            double vecVerY = verticalY - B1;
+                            //基础向量(0,-1)
+                            if (vecVerY < 0) {
+                                num++;
+                            }
                         }
                     }
                 }
@@ -185,7 +181,18 @@ public class Plot {
         return new int[]{-1,-1};
     }
 
-    private void createNew(String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
+    /**
+     * 通过点文件创建kml新文件
+     * @param pointFile 点文件路径
+     * @param newFile 新文件路径
+     * @param changeColor 是否修改箭头颜色
+     * @param color 颜色值
+     * @param changeLabel 是否修改点图标
+     * @param isInner 内置点图标序号
+     * @param labelUrl 点图标超链接
+     */
+    void createNew(String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
+        getBoundary();
         ///读取GPS点
         try {
             FileReader fileReader = new FileReader(pointFile);
@@ -200,7 +207,6 @@ public class Plot {
                 double Vn = Double.valueOf(info[3]);
                 double sigVe = Double.valueOf(info[4]);
                 double sigVn = Double.valueOf(info[5]);
-                //info[6]协方差暂时忽略
                 double sigVen = Double.valueOf(info[6]);
                 String ID = info[7];
                 tempInfos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
@@ -217,7 +223,7 @@ public class Plot {
             splitPoints.add(i * tempInfos.size() / numOfThread);
         }
         splitPoints.add(tempInfos.size());
-        //线程类,注意这里面传入的num和countDownLatch
+        //线程类
         class MyThread implements Runnable {
             private int num;
             private CountDownLatch countDownLatch;
@@ -232,7 +238,6 @@ public class Plot {
                 for (int i = splitPoints.get(num); i < splitPoints.get(num + 1); i++) {
                     int[] location = segment(tempInfos.get(i).L, tempInfos.get(i).B);
                     if (location[0] >= 0 && location[1] >= 0) {
-                        //多个线程同时向arrayList添加元素冲突;故将infos改为vector存储
                         plots.get(location[0]).polygon2s.get(location[1]).points.add(new Info(tempInfos.get(i).L,
                                 tempInfos.get(i).B,
                                 tempInfos.get(i).Ve, tempInfos.get(i).Vn,
@@ -242,7 +247,7 @@ public class Plot {
                                 tempInfos.get(i).ID));
                     }
                     else {
-                        System.out.println("分类错误: " + tempInfos.get(i).L + "," + tempInfos.get(i).B);
+                        System.out.println("Classification error : " + tempInfos.get(i).L + "," + tempInfos.get(i).B);
                     }
                 }
                 //主线程等待
@@ -327,14 +332,14 @@ public class Plot {
                     bufferedWriter.write("_boundary</name>\n" +
                             "\t\t\t<Style id=\"polygon2\">\n");
                     bufferedWriter.write(s1);
-                    StringBuffer stringBuffer1 = new StringBuffer();
+                    StringBuilder stringBuilder = new StringBuilder();
                     for (int k = 0,len4 = tempBoundary.size(); k < len4; k++) {
-                        stringBuffer1.append(tempBoundary.get(k).x);
-                        stringBuffer1.append(',');
-                        stringBuffer1.append(tempBoundary.get(k).y);
-                        stringBuffer1.append(' ');
+                        stringBuilder.append(tempBoundary.get(k).x);
+                        stringBuilder.append(',');
+                        stringBuilder.append(tempBoundary.get(k).y);
+                        stringBuilder.append(' ');
                     }
-                    bufferedWriter.write(stringBuffer1.toString());
+                    bufferedWriter.write(stringBuilder.toString());
                     bufferedWriter.write(s2);
                 }
                 //一级边界
@@ -345,14 +350,14 @@ public class Plot {
                         "\t\t\t<Style id=\"polygon1\">\n");
                 bufferedWriter.write(s1);
                 tempBoundary = plots.get(i).boundarys;
-                StringBuffer stringBuffer = new StringBuffer();
+                StringBuilder stringBuilder = new StringBuilder();
                 for (int j = 0,len2 = tempBoundary.size(); j < len2; j++) {
-                    stringBuffer.append(tempBoundary.get(j).x);
-                    stringBuffer.append(',');
-                    stringBuffer.append(tempBoundary.get(j).y);
-                    stringBuffer.append(' ');
+                    stringBuilder.append(tempBoundary.get(j).x);
+                    stringBuilder.append(',');
+                    stringBuilder.append(tempBoundary.get(j).y);
+                    stringBuilder.append(' ');
                 }
-                bufferedWriter.write(stringBuffer.toString());
+                bufferedWriter.write(stringBuilder.toString());
                 bufferedWriter.write(s2);
                 bufferedWriter.write("\t</Folder>\n");
             }
@@ -365,6 +370,17 @@ public class Plot {
         }
     }
 
+    /**
+     * 绘制误差椭圆
+     * @param L2 交点经度
+     * @param B2 交点纬度
+     * @param sigVe Ve误差
+     * @param sigVn Vn误差
+     * @param sigVen 协方差
+     * @param signNum 缩放倍率
+     * @param baseColor 椭圆界线颜色
+     * @return 绘制椭圆的kml字符串
+     */
     private String oval(double L2,double B2,double sigVe,double sigVn,double sigVen,double signNum,String baseColor) {
         //误差椭圆
         ArrayList<Point> ovalPoints = new ArrayList<>();
@@ -374,8 +390,6 @@ public class Plot {
         double current = -step;
         for (int i = 0; i < NUM ; i++) {
             current += step;
-            //double currentX = current * signNum / Math.cos(B2 * Math.PI / 180);
-            //double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe)) * signNum;
             double currentX = current;
             double currentY = sigVn * Math.sqrt(1 - (current * current) / (sigVe * sigVe));
             ovalPoints.add(new Point(currentX,currentY));
@@ -479,7 +493,16 @@ public class Plot {
         return oval.toString();
     }
 
-    private void write(double L1, double B1, double Ve, double Vn,double sigVe,double sigVn, double sigVen,String ID,
+    /**
+     * 绘制单个箭头
+     * @param bufferedWriter bufferedWriter
+     * @param changeColor 是否修改颜色
+     * @param color 颜色
+     * @param changeLabel 是否修改icon
+     * @param isInner 是否使用内置icon
+     * @param labelUrl icon num or icon url
+     */
+    void write(double L1, double B1, double Ve, double Vn,double sigVe,double sigVn, double sigVen,String ID,
                        BufferedWriter bufferedWriter,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
         //另一端点处经度度增加值 1:100万 1度->111km
         double signNum = (1000 * Math.PI) / (111 * 180);
@@ -506,7 +529,7 @@ public class Plot {
             if (isInner) {
                 int location = Integer.valueOf(labelUrl);
                 if (location > innerLables.length | location < 1) {
-                    System.out.println("无此内置Label!");
+                    System.out.println("No such icon!");
                     System.exit(1);
                 } else {
                     baseurl = baseurl.replaceAll("<href>.+</href>",innerLables[location-1]);
@@ -577,7 +600,12 @@ public class Plot {
 
     }
 
-    private void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile, String newFile) {
+    /**
+     * 添加箭头到新文件
+     * @param oldFile 原始文件
+     * @param newFile 新文件
+     */
+    void addOnNew(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile, String newFile) {
         getBoundary();
         int[] location = segment(L,B);
         if (location[0] >= 0 && location[1] >= 0) {
@@ -604,28 +632,33 @@ public class Plot {
                 bufferedWriter.close();
                 fileReader.close();
                 fileWriter.close();
-                System.out.println("添加成功！");
+                System.out.println("Add successfully！");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    //直接移植
-    private void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile) {
+    /**
+     *添加箭头到原始文件
+     */
+    void addOnOld(double L, double B,double Ve,double Vn,double sigVe,double sigVn,double sigVen,String ID, String oldFile) {
         String tempFile = oldFile+".temp";
         addOnNew(L,B,Ve,Vn,sigVe,sigVn,sigVen,ID,oldFile,tempFile);
         if (new File(oldFile).delete() && new File(tempFile).renameTo(new File(oldFile))) {
-            System.out.println("添加成功！");
+            System.out.println("Add successfully！");
         }
     }
 
-    //直接移植
-    private void delete(boolean findByName,String L,String B,String oldFile,String newFile,boolean isNew) {
+    /**
+     * 通过点名或其经纬度删除该点
+     * @param findByName 是否通过点名删除
+     */
+    void delete(boolean findByName,String L,String B,String oldFile,String newFile,boolean isNew) {
         //每次将一个完整的箭头存储起来，当符合条件，不写入新文件，否则写入新文件
         String sign = L;
         if (!findByName)
-            sign = L + "," + B;
+            sign = L.replaceAll("\\.","\\\\.") + "," + B.replaceAll("\\.","\\\\.");
         String s;
         ArrayList<String> tempArrow = new ArrayList<>();
         Pattern pattern = Pattern.compile("<Folder id=\"arrow\">");
@@ -673,10 +706,10 @@ public class Plot {
             fileReader.close();
             fileWriter.close();
             if (isNew)
-                System.out.println("删除成功！");
+                System.out.println("Delete successfully！");
             else {
                 if (new File(oldFile).delete() && new File(tempFile).renameTo(new File(oldFile))) {
-                    System.out.println("删除成功！");
+                    System.out.println("Delete successfully！！");
                 }
             }
         } catch (IOException e) {
@@ -684,12 +717,15 @@ public class Plot {
         }
     }
 
-
-    private void highLight(boolean findByName,String L,String B,String oldFile,boolean isHighLight,String color,String newFile,boolean isNew,boolean isBlock2) {
+    /**
+     *通过地块内的一个点高亮显示或取消高亮显示该地块
+     * @param isBlock2 高亮显示一级地块or二级地块
+     */
+    void highLight(boolean findByName,String L,String B,String oldFile,boolean isHighLight,String color,String newFile,boolean isNew,boolean isBlock2) {
         String sign = "<name>" + L + "</name>";
         String s;
         if (!findByName)
-            sign = L+","+B;
+            sign = L.replaceAll("\\.","\\\\.")+","+B.replaceAll("\\.","\\\\.");
         Pattern pattern = Pattern.compile(sign);
         Pattern pattern1 = Pattern.compile("<Style id=\"polygon1\">");
         Pattern pattern2 = Pattern.compile("<Style id=\"polygon2\">");
@@ -744,16 +780,16 @@ public class Plot {
             }
             if (isNew) {
                 if (isHighLight)
-                    System.out.println("高亮显示！");
+                    System.out.println("Highlight successfully！");
                 else
-                    System.out.println("取消高亮显示！");
+                    System.out.println("Cancel highlight successfully！");
             }
             else {
                 if (new File(oldFile).delete() && new File(newFile).renameTo(new File(oldFile))) {
                     if (isHighLight)
-                        System.out.println("高亮显示！");
+                        System.out.println("Highlight successfully！");
                     else
-                        System.out.println("取消高亮显示！");
+                        System.out.println("Cancel highlight successfully！");
                 }
             }
             bufferedReader.close();
@@ -765,12 +801,15 @@ public class Plot {
         }
     }
 
-    //直接移植
-    private void changeColor(boolean findByName,String L,String B,String oldFile,String color,String newFile,boolean isNew) {
+    /**
+     *改变箭头的颜色
+     */
+    void changeColor(boolean findByName,String L,String B,String oldFile,String color,String newFile,boolean isNew) {
         String s;
         String signF = L;
-        if (!findByName)
-            signF = L + "," + B;
+        if (!findByName) {
+            signF = L.replaceAll("\\.","\\\\.") + "," + B.replaceAll("\\.","\\\\.");
+        }
         Pattern pattern = Pattern.compile(signF);
         Matcher matcher;
         Pattern pattern1 = Pattern.compile("<color>\\w{6,8}</color>");
@@ -814,10 +853,10 @@ public class Plot {
             fileWriter.close();
             fileReader.close();
             if (isNew)
-                System.out.println("修改颜色成功！");
+                System.out.println("Change color successfully！");
             else {
                 if (new File(oldFile).delete() && new File(tempfile).renameTo(new File(oldFile))) {
-                    System.out.println("修改颜色成功！");
+                    System.out.println("Change color successfully");
                 }
             }
         } catch (IOException e) {
@@ -825,22 +864,24 @@ public class Plot {
         }
     }
 
-    //直接移植被修改后的write与oval函数后也可直接移植
-    private void changeLabel(boolean findByName,String L,String B,String oldFile,String label,boolean inner,String newFile,boolean isNew) {
+    /**
+     *改变箭头起点点的图标
+     */
+    void changeLabel(boolean findByName,String L,String B,String oldFile,String label,boolean inner,String newFile,boolean isNew) {
         String labelUrl = label;
         if (inner) {
             int location = Integer.valueOf(label);
             if (location <= innerLables.length && location > 0)
                 labelUrl = innerLables[location -1];
             else {
-                System.out.println("内置标签序号小于等于" + innerLables.length);
+                System.out.println("The index number needs to be less than " + innerLables.length);
                 System.exit(1);
             }
         }
         String sign = "<name>" + L + "</name>";
         String s;
         if (!findByName)
-            sign = L+","+B;
+            sign = L.replaceAll("\\.","\\\\.")+","+B.replaceAll("\\.","\\\\.");
         Pattern pattern = Pattern.compile(sign);
         Pattern pattern1 = Pattern.compile("<Style id=\"point\">");
         Matcher matcher,matcher1;
@@ -880,10 +921,10 @@ public class Plot {
                 }
             }
             if (isNew)
-                System.out.println("修改图标成功！");
+                System.out.println("Change icon successfully！");
             else {
                 if (new File(oldFile).delete() && new File(newFile).renameTo(new File(oldFile))) {
-                    System.out.println("修改图标成功！");
+                    System.out.println("Change icon successfully！");
                 }
             }
             bufferedReader.close();
@@ -893,22 +934,5 @@ public class Plot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        Plot plot = new Plot();
-        plot.getBoundary();
-        plot.createNew("/home/ubd/work/GE/GE_TST.txt",
-                "/home/ubd/work/GE/GE_TST-1.kml",
-                false,
-                "",
-                false,
-                false,
-                "");
-        //plot.addOnNew(131.5,41.5,3.5,4.5,0.3,0.4,0.5,"newPoint","/home/ubd/work/GE/GE_TST-1.kml","/home/ubd/work/GE/GE_TST-2.kml");
-        //plot.delete(false,"131.5","41.5","/home/ubd/work/GE/GE_TST-2.kml","/home/ubd/work/GE/GE_TST-3.kml",true);
-        //plot.highLight(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml",true,"ffff0000","/home/ubd/work/GE/GE_TST-3.kml",true,true);
-        //plot.changeColor(true,"newPoint","41.5","/home/ubd/work/GE/GE_TST-2.kml","ffff0000","",false);
-        plot.changeLabel(false,"131.5","41.5","/home/ubd/work/GE/GE_TST-2.kml","3",true,"/home/ubd/work/GE/GE_TST-3.kml",true);
     }
 }

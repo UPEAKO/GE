@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class Polygon1 {
-    public String name;
-    public ArrayList<Point> boundarys;
-    public ArrayList<Polygon2> polygon2s;
+class Polygon1 {
+    String name;
+    ArrayList<Point> boundarys;
+    ArrayList<Polygon2> polygon2s;
     Polygon1(String name, ArrayList<Point> boundarys, ArrayList<Polygon2> polygon2s) {
         this.name = name;
         this.boundarys = boundarys;
