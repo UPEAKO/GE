@@ -28,9 +28,8 @@ class GE extends Plot{
         Province tempProvince = new Province();
         boolean isWrite = false;
         ArrayList<Point> tempBoundary = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)){
             while ((s = bufferedReader.readLine()) != null) {
                 if (isName) {
                     matcher = pattern.matcher(s);
@@ -59,7 +58,6 @@ class GE extends Plot{
                     }
                 }
             }
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,12 +127,16 @@ class GE extends Plot{
     @Override
     void createNew(String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
         getBoundary();
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
             //读取GPS点
-            FileReader fileReader = new FileReader(pointFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            FileWriter fileWriter = new FileWriter(newFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileReader = new FileReader(pointFile);
+            bufferedReader = new BufferedReader(fileReader);
+            fileWriter = new FileWriter(newFile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             String sp;
             while ((sp = bufferedReader.readLine()) != null) {
                 String[] info = sp.split(" ");
@@ -149,7 +151,6 @@ class GE extends Plot{
                 tempInfos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
             }
             bufferedReader.close();
-            fileReader.close();
             final int numOfThread = 8;
             CountDownLatch countDownLatch = new CountDownLatch(numOfThread);
             for (int i = 0; i < numOfThread; i++) {
@@ -199,16 +200,16 @@ class GE extends Plot{
             bufferedWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n" +
                     "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +
                     "<Document id=\"root_doc\">\n" +
-                    "\t\t<Folder>\n" +
+                    "\t\t<Folder id=\"label\">\n" +
                     "\t\t\t<name>LABEL</name>\n" +
                     "\t\t\t<ScreenOverlay id=\"label\">\n" +
                     "\t\t\t\t<name>label</name>\n" +
                     "\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t<href>http://www.wypmk.xyz/other/sign.png</href>\n" +
+                    "\t\t\t\t\t<href>http://www.cug.edu.cn/images/logo.png</href>\n" +
                     "\t\t\t\t</Icon>\n" +
                     "\t\t\t\t<overlayXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                     "\t\t\t\t<screenXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<size x=\"200\" y=\"176\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t\t\t<size x=\"370\" y=\"74\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
                     "\t\t\t</ScreenOverlay>\n" +
                     "\t\t</Folder>\n");
             //写文件
@@ -243,12 +244,21 @@ class GE extends Plot{
                 }
             }
             System.out.println("finish！");
-            bufferedWriter.close();
-            fileWriter.close();
-            bufferedReader.close();
-            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -272,11 +282,10 @@ class GE extends Plot{
             Pattern pattern2 = Pattern.compile("</Document>");
             Matcher matcher2;
             String s;
-            try {
-                FileReader fileReader = new FileReader(oldFile);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                FileWriter fileWriter = new FileWriter(newFile);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            try (FileReader fileReader = new FileReader(oldFile);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader);
+                 FileWriter fileWriter = new FileWriter(newFile);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)){
                 while ((s = bufferedReader.readLine()) != null) {
                     matcher = pattern.matcher(s);
                     if (matcher.find()) {
@@ -300,10 +309,6 @@ class GE extends Plot{
                     }
                     oldS = s;
                 }
-                bufferedReader.close();
-                bufferedWriter.close();
-                fileReader.close();
-                fileWriter.close();
                 System.out.println("Add successfully！");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -322,15 +327,18 @@ class GE extends Plot{
         Pattern patternFirst1 = Pattern.compile("<Folder id=\"province\">");
         Pattern patternFirst2 = Pattern.compile(sign);
         Matcher matcherFirst1,matcherFirst2;
-
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileReader fileReader = new FileReader(oldFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(oldFile);
+            bufferedReader = new BufferedReader(fileReader);
             String tempFile = oldFile + ".temp";
             if (isNew)
                 tempFile = newFile;
-            FileWriter fileWriter = new FileWriter(tempFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter = new FileWriter(tempFile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             while ((s = bufferedReader.readLine()) != null) {
                 bufferedWriter.write(s);
                 bufferedWriter.write('\n');
@@ -393,10 +401,6 @@ class GE extends Plot{
                 else
                     bufferedWriter.write(s + "\n");
             }
-            bufferedReader.close();
-            bufferedWriter.close();
-            fileWriter.close();
-            fileReader.close();
             if (isNew) {
                 if (isHighLight)
                     System.out.println("Highlight successfully！");
@@ -413,6 +417,19 @@ class GE extends Plot{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

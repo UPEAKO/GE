@@ -3,7 +3,11 @@ import com.beust.jcommander.Parameter;
 
 import java.io.File;
 
-
+/**
+ * created by YuPeng Wen;
+ * compile on jdk8;
+ * third-party parsing library:Jcommander1.72(http://www.jcommander.org/)
+ */
 public class Main {
     @Parameter(names = "-F",description = "choose a function(1 for province,2 for plot) first",order = 0,required = true)
     private int function = 1;

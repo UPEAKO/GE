@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 class Plot {
     //内置icon
     private static String [] innerLables = {
-            "http://www.wypmk.xyz/other/cug.png",
+            "http://maps.google.com/mapfiles/kml/shapes/placemark_square.png",
             "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png",
             "http://maps.google.com/mapfiles/kml/shapes/target.png",
             "http://maps.google.com/mapfiles/kml/shapes/shaded_dot.png"
@@ -29,9 +29,8 @@ class Plot {
         ArrayList< ArrayList<Point> > boundarys = new ArrayList<>();
         File file = new File("CN-block.dat");
         String s;
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)){
             ArrayList<Point> tempBoundary = new ArrayList<>();
             //读取混乱边界
             while (!(s = bufferedReader.readLine()).equals("#")) {
@@ -117,9 +116,6 @@ class Plot {
             }
             //添加最后对应一级,二级地块
             plots.add(new Polygon1(name1,tempBoundary1,tempBoundary2s));
-
-            bufferedReader.close();
-            fileReader.close();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -194,9 +190,8 @@ class Plot {
     void createNew(String pointFile,String newFile,boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
         getBoundary();
         ///读取GPS点
-        try {
-            FileReader fileReader = new FileReader(pointFile);
-             BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (FileReader fileReader = new FileReader(pointFile);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)){
             String sp;
             //读一个处理一个
             while ((sp = bufferedReader.readLine()) != null) {
@@ -211,8 +206,6 @@ class Plot {
                 String ID = info[7];
                 tempInfos.add(new Info(L, B, Ve, Vn, sigVe, sigVn, sigVen, ID));
             }
-            fileReader.close();
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -265,14 +258,25 @@ class Plot {
             e.printStackTrace();
         }
         ///一级及相应的二级边界放在同一个folder
-        try {
-            File file = new File(newFile);
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        File file = new File(newFile);
+        try (FileWriter fileWriter = new FileWriter(file);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);){
             //kml头部
             bufferedWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n" +
                     "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +
-                    "<Document id=\"root_doc\">\n");
+                    "<Document id=\"root_doc\">\n" +
+                    "\t\t<Folder id=\"label\">\n" +
+                    "\t\t\t<name>LABEL</name>\n" +
+                    "\t\t\t<ScreenOverlay id=\"label\">\n" +
+                    "\t\t\t\t<name>label</name>\n" +
+                    "\t\t\t\t<Icon>\n" +
+                    "\t\t\t\t\t<href>http://www.cug.edu.cn/images/logo.png</href>\n" +
+                    "\t\t\t\t</Icon>\n" +
+                    "\t\t\t\t<overlayXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<screenXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t\t<size x=\"370\" y=\"74\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t\t</ScreenOverlay>\n" +
+                    "\t\t</Folder>\n");
             //一二级地块边界
             ArrayList<Point> tempBoundary;
             //二级地块内的点
@@ -363,11 +367,11 @@ class Plot {
             }
             bufferedWriter.write("</Document>\n" +
                     "</kml>");
-            bufferedWriter.close();
-            fileWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("finish！");
     }
 
     /**
@@ -613,11 +617,10 @@ class Plot {
             Pattern pattern = Pattern.compile(signForAdd);
             Matcher matcher;
             String s;
-            try {
-                FileReader fileReader = new FileReader(oldFile);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                FileWriter fileWriter = new FileWriter(newFile);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            try (FileReader fileReader = new FileReader(oldFile);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader);
+                 FileWriter fileWriter = new FileWriter(newFile);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)){
                 while ((s = bufferedReader.readLine()) != null) {
                     matcher = pattern.matcher(s);
                     if (matcher.find()) {
@@ -628,10 +631,6 @@ class Plot {
                         bufferedWriter.write(s + "\n");
 
                 }
-                bufferedReader.close();
-                bufferedWriter.close();
-                fileReader.close();
-                fileWriter.close();
                 System.out.println("Add successfully！");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -667,15 +666,19 @@ class Plot {
         Matcher matcher,matcher1,matcher2;
         boolean continusAdd = false;
         boolean store = false;
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileReader fileReader = new FileReader(oldFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(oldFile);
+            bufferedReader = new BufferedReader(fileReader);
             String tempFile = oldFile + ".temp";
             if (isNew) {
                 tempFile = newFile;
             }
-            FileWriter fileWriter = new FileWriter(tempFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter = new FileWriter(tempFile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             while ((s = bufferedReader.readLine()) != null) {
                 matcher = pattern.matcher(s);
                 matcher1 = pattern1.matcher(s);
@@ -701,10 +704,6 @@ class Plot {
                     bufferedWriter.write(s + "\n");
                 }
             }
-            bufferedReader.close();
-            bufferedWriter.close();
-            fileReader.close();
-            fileWriter.close();
             if (isNew)
                 System.out.println("Delete successfully！");
             else {
@@ -714,6 +713,19 @@ class Plot {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -730,13 +742,17 @@ class Plot {
         Pattern pattern1 = Pattern.compile("<Style id=\"polygon1\">");
         Pattern pattern2 = Pattern.compile("<Style id=\"polygon2\">");
         Matcher matcher,matcher1or2;
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileReader fileReader = new FileReader(oldFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(oldFile);
+            bufferedReader = new BufferedReader(fileReader);
             if (!isNew)
                 newFile = oldFile+".temp";
-            FileWriter fileWriter = new FileWriter(newFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter = new FileWriter(newFile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             boolean hasDone = false;
             int jumpNum = 0;
             while ((s = bufferedReader.readLine()) != null) {
@@ -792,12 +808,21 @@ class Plot {
                         System.out.println("Cancel highlight successfully！");
                 }
             }
-            bufferedReader.close();
-            fileReader.close();
-            bufferedWriter.close();
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -815,14 +840,18 @@ class Plot {
         Pattern pattern1 = Pattern.compile("<color>\\w{6,8}</color>");
         Matcher matcher1;
         int sign = 0;
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileReader fileReader = new FileReader(oldFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(oldFile);
+            bufferedReader = new BufferedReader(fileReader);
             String tempfile = oldFile + ".temp";
             if (isNew)
                 tempfile = newFile;
-            FileWriter fileWriter = new FileWriter(tempfile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter = new FileWriter(tempfile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             while ((s = bufferedReader.readLine()) != null) {
                 matcher = pattern.matcher(s);
                 if (matcher.find()) {
@@ -861,6 +890,19 @@ class Plot {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -885,13 +927,17 @@ class Plot {
         Pattern pattern = Pattern.compile(sign);
         Pattern pattern1 = Pattern.compile("<Style id=\"point\">");
         Matcher matcher,matcher1;
+        FileReader fileReader;
+        BufferedReader bufferedReader = null;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileReader fileReader = new FileReader(oldFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(oldFile);
+            bufferedReader = new BufferedReader(fileReader);
             if (!isNew)
                 newFile = oldFile+".temp";
-            FileWriter fileWriter = new FileWriter(newFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter = new FileWriter(newFile);
+            bufferedWriter = new BufferedWriter(fileWriter);
             boolean hasDone = false;
             int jumpNum = 0;
             while ((s = bufferedReader.readLine()) != null) {
@@ -927,12 +973,21 @@ class Plot {
                     System.out.println("Change icon successfully！");
                 }
             }
-            bufferedReader.close();
-            fileReader.close();
-            bufferedWriter.close();
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

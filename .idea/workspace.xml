@@ -7,29 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36404cba-524f-4462-a809-76f19ca6948a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/GE_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/GE_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GE.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/GE_jar/GE.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GE_jar/GE.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GE/GE$1MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/GE$1MyThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GE/GE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/GE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Info.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/META-INF/GE.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GE/Plot$1MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Plot$1MyThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GE/Plot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Plot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Polygon1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Polygon1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Polygon2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Polygon2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GE/Province.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GE/Province.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Plot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Plot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Polygon1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Polygon1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Polygon2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Polygon2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Province.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Province.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,11 +26,178 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Plot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="810" column="12" lean-forward="true" selection-start-line="810" selection-start-column="12" selection-end-line="810" selection-end-column="12" />
+            <state relative-caret-position="-70">
+              <caret line="189" column="137" selection-start-line="189" selection-start-column="137" selection-end-line="189" selection-end-column="137" />
+              <folding>
+                <element signature="docComment;method#getBoundary#0;class#Plot#0" />
+                <element signature="method#getBoundary#0;class#Plot#0" />
+                <element signature="e#993#5760#0" />
+                <element signature="e#1278#1657#1" />
+                <element signature="e#1337#1459#1" />
+                <element signature="e#1481#1643#1" />
+                <element signature="e#2063#5580#1" />
+                <element signature="e#2099#2383#1" />
+                <element signature="e#2405#5566#1" />
+                <element signature="e#2472#3948#1" />
+                <element signature="e#2650#3741#1" />
+                <element signature="e#2995#3338#1" />
+                <element signature="e#3075#3308#1" />
+                <element signature="e#3372#3715#1" />
+                <element signature="e#3452#3685#1" />
+                <element signature="e#4003#5548#1" />
+                <element signature="e#4146#5237#1" />
+                <element signature="e#4491#4834#1" />
+                <element signature="e#4571#4804#1" />
+                <element signature="e#4868#5211#1" />
+                <element signature="e#4948#5181#1" />
+                <element signature="e#5791#5835#0" />
+                <element signature="docComment;method#segment#0;class#Plot#0" />
+                <element signature="method#segment#0;class#Plot#0" />
+                <element signature="e#6144#7946#1" />
+                <element signature="e#6287#7936#1" />
+                <element signature="e#6484#7824#1" />
+                <element signature="e#6739#7806#1" />
+                <element signature="e#7006#7114#1" />
+                <element signature="e#7120#7784#1" />
+                <element signature="e#7688#7758#1" />
+                <element signature="e#7859#7922#1" />
+                <element signature="docComment;method#createNew#0;class#Plot#0" />
+                <element signature="method#createNew#0;class#Plot#0" />
+                <element signature="e#8427#9312#0" />
+                <element signature="e#8675#9234#1" />
+                <element signature="e#9335#9379#0" />
+                <element signature="e#9559#9635#1" />
+                <element signature="class#9701:11046" />
+                <element signature="method#MyThread#0;class#9701:11046" />
+                <element signature="method#run#0;class#9701:11046" />
+                <element signature="e#10131#10954#1" />
+                <element signature="e#10281#10768#1" />
+                <element signature="e#10794#10936#1" />
+                <element signature="e#11116#11193#1" />
+                <element signature="e#11206#11273#0" />
+                <element signature="e#11305#11349#0" />
+                <element signature="e#11395#16537#0" />
+                <element signature="e#12951#16377#1" />
+                <element signature="e#13263#15420#1" />
+                <element signature="e#13716#14349#1" />
+                <element signature="e#15025#15288#1" />
+                <element signature="e#15959#16202#1" />
+                <element signature="e#16560#16604#0" />
+                <element signature="docComment;method#oval#0;class#Plot#0" />
+                <element signature="method#oval#0;class#Plot#0" />
+                <element signature="e#17180#17409#1" />
+                <element signature="e#18505#19207#1" />
+                <element signature="e#18631#18853#1" />
+                <element signature="e#18859#19081#1" />
+                <element signature="e#19259#19962#1" />
+                <element signature="e#19386#19608#1" />
+                <element signature="e#19614#19836#1" />
+                <element signature="e#20014#20718#1" />
+                <element signature="e#20142#20364#1" />
+                <element signature="e#20370#20592#1" />
+                <element signature="e#20771#21474#1" />
+                <element signature="e#20898#21120#1" />
+                <element signature="e#21126#21348#1" />
+                <element signature="docComment;method#write#0;class#Plot#0" />
+                <element signature="method#write#0;class#Plot#0" />
+                <element signature="e#23369#23894#1" />
+                <element signature="e#23396#23766#1" />
+                <element signature="e#23522#23634#1" />
+                <element signature="e#23640#23752#1" />
+                <element signature="e#23772#23884#1" />
+                <element signature="e#23909#26554#0" />
+                <element signature="e#26577#26621#0" />
+                <element signature="docComment;method#addOnNew#0;class#Plot#0" />
+                <element signature="method#addOnNew#0;class#Plot#0" />
+                <element signature="e#26969#28252#1" />
+                <element signature="e#27215#28167#0" />
+                <element signature="e#27571#27944#1" />
+                <element signature="e#27663#27844#1" />
+                <element signature="e#28190#28242#0" />
+                <element signature="docComment;method#addOnOld#0;class#Plot#0" />
+                <element signature="method#addOnOld#0;class#Plot#0" />
+                <element signature="e#28619#28683#1" />
+                <element signature="docComment;method#delete#0;class#Plot#0" />
+                <element signature="method#delete#0;class#Plot#0" />
+                <element signature="e#29048#30763#0" />
+                <element signature="e#29248#29299#1" />
+                <element signature="e#29498#30454#1" />
+                <element signature="e#29630#29768#1" />
+                <element signature="e#29810#30145#1" />
+                <element signature="e#29929#30088#1" />
+                <element signature="e#29983#30066#1" />
+                <element signature="e#30167#30363#1" />
+                <element signature="e#30369#30440#1" />
+                <element signature="e#30555#30753#1" />
+                <element signature="e#30655#30739#1" />
+                <element signature="e#30786#30830#0" />
+                <element signature="e#30839#31014#0" />
+                <element signature="e#30916#30953#0" />
+                <element signature="e#30952#31004#0" />
+                <element signature="e#31140#31244#0" />
+                <element signature="e#31267#31319#0" />
+                <element signature="docComment;method#highLight#0;class#Plot#0" />
+                <element signature="method#highLight#0;class#Plot#0" />
+                <element signature="e#32000#34981#0" />
+                <element signature="e#32469#34240#1" />
+                <element signature="e#32565#34050#1" />
+                <element signature="e#32685#34032#1" />
+                <element signature="e#32928#33895#1" />
+                <element signature="e#32975#33422#1" />
+                <element signature="e#33428#33869#1" />
+                <element signature="e#33925#34010#1" />
+                <element signature="e#34056#34226#1" />
+                <element signature="e#34264#34474#1" />
+                <element signature="e#34492#34835#1" />
+                <element signature="e#34591#34821#1" />
+                <element signature="e#35004#35048#0" />
+                <element signature="e#34993#35395#0" />
+                <element signature="e#35011#35115#0" />
+                <element signature="e#35138#35190#0" />
+                <element signature="e#35207#35310#0" />
+                <element signature="e#35333#35385#0" />
+                <element signature="docComment;method#changeColor#0;class#Plot#0" />
+                <element signature="method#changeColor#0;class#Plot#0" />
+                <element signature="e#35273#35369#1" />
+                <element signature="e#35576#37449#0" />
+                <element signature="e#36021#36850#1" />
+                <element signature="e#36105#36759#1" />
+                <element signature="e#36227#36714#1" />
+                <element signature="e#36330#36599#1" />
+                <element signature="e#36605#36692#1" />
+                <element signature="e#36765#36836#1" />
+                <element signature="e#36931#36994#1" />
+                <element signature="e#37237#37439#1" />
+                <element signature="e#37337#37425#1" />
+                <element signature="e#37472#37516#0" />
+                <element signature="e#37973#38374#0" />
+                <element signature="e#37991#38094#0" />
+                <element signature="e#38117#38169#0" />
+                <element signature="e#38186#38289#0" />
+                <element signature="e#38312#38364#0" />
+                <element signature="docComment;method#changeLabel#0;class#Plot#0" />
+                <element signature="method#changeLabel#0;class#Plot#0" />
+                <element signature="e#37741#38085#1" />
+                <element signature="e#37928#38075#1" />
+                <element signature="e#38420#40428#0" />
+                <element signature="e#38889#39975#1" />
+                <element signature="e#38985#39785#1" />
+                <element signature="e#39105#39767#1" />
+                <element signature="e#39208#39630#1" />
+                <element signature="e#39660#39745#1" />
+                <element signature="e#39791#39961#1" />
+                <element signature="e#40081#40282#1" />
+                <element signature="e#40180#40268#1" />
+                <element signature="e#40451#40495#0" />
+                <element signature="e#41235#41636#0" />
+                <element signature="e#41253#41356#0" />
+                <element signature="e#41379#41431#0" />
+                <element signature="e#41448#41551#0" />
+                <element signature="e#41574#41626#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,17 +205,119 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-802">
-              <caret line="260" column="14" lean-forward="true" selection-start-line="260" selection-start-column="14" selection-end-line="260" selection-end-column="14" />
+            <state relative-caret-position="286">
+              <caret line="127" column="137" selection-start-line="127" selection-start-column="137" selection-end-line="127" selection-end-column="137" />
+              <folding>
+                <element signature="docComment;method#getBoundary#0;class#GE#0" />
+                <element signature="method#getBoundary#0;class#GE#0" />
+                <element signature="e#967#2401#0" />
+                <element signature="e#1163#2355#1" />
+                <element signature="e#1193#1428#1" />
+                <element signature="e#1285#1410#1" />
+                <element signature="e#1434#2341#1" />
+                <element signature="e#1532#2117#1" />
+                <element signature="e#1737#1932#1" />
+                <element signature="e#2151#2323#1" />
+                <element signature="e#2424#2468#0" />
+                <element signature="docComment;method#segment#0;class#GE#0" />
+                <element signature="method#segment#0;class#GE#0" />
+                <element signature="e#2711#4471#1" />
+                <element signature="e#2844#4461#1" />
+                <element signature="e#3011#4363#1" />
+                <element signature="e#3272#4345#1" />
+                <element signature="e#3545#3653#1" />
+                <element signature="e#3659#4323#1" />
+                <element signature="e#4227#4297#1" />
+                <element signature="e#4398#4447#1" />
+                <element signature="docComment;method#createNew#0;class#GE#0" />
+                <element signature="method#createNew#0;class#GE#0" />
+                <element signature="e#4926#10677#0" />
+                <element signature="e#5309#5868#1" />
+                <element signature="e#6103#6187#1" />
+                <element signature="class#6265:7481" />
+                <element signature="method#MyThread#0;class#6265:7481" />
+                <element signature="method#run#0;class#6265:7481" />
+                <element signature="e#6727#7373#1" />
+                <element signature="e#6859#7351#1" />
+                <element signature="e#7560#7645#1" />
+                <element signature="e#7662#7741#0" />
+                <element signature="e#7773#7825#0" />
+                <element signature="e#8905#10034#1" />
+                <element signature="e#8962#10020#1" />
+                <element signature="e#9212#9941#1" />
+                <element signature="e#10270#10488#1" />
+                <element signature="e#10361#10474#1" />
+                <element signature="e#10700#10744#0" />
+                <element signature="e#10776#11177#0" />
+                <element signature="e#10794#10897#0" />
+                <element signature="e#10920#10972#0" />
+                <element signature="e#10989#11092#0" />
+                <element signature="e#11115#11167#0" />
+                <element signature="docComment;method#addOnNew#0;class#GE#0" />
+                <element signature="method#addOnNew#0;class#GE#0" />
+                <element signature="e#11142#13394#1" />
+                <element signature="e#11539#13309#0" />
+                <element signature="e#11895#13086#1" />
+                <element signature="e#11987#12215#1" />
+                <element signature="e#12221#13038#1" />
+                <element signature="e#12419#12927#1" />
+                <element signature="e#13332#13384#0" />
+                <element signature="docComment;method#highLight#0;class#GE#0" />
+                <element signature="method#highLight#0;class#GE#0" />
+                <element signature="e#13955#17928#0" />
+                <element signature="e#14400#15005#1" />
+                <element signature="e#14645#14902#1" />
+                <element signature="e#14945#14991#1" />
+                <element signature="e#15447#17186#1" />
+                <element signature="e#15479#17099#1" />
+                <element signature="e#15624#15903#1" />
+                <element signature="e#15673#15756#1" />
+                <element signature="e#15929#16908#1" />
+                <element signature="e#16048#16548#1" />
+                <element signature="e#16099#16292#1" />
+                <element signature="e#16298#16522#1" />
+                <element signature="e#16578#16743#1" />
+                <element signature="e#16929#16996#1" />
+                <element signature="e#17002#17081#1" />
+                <element signature="e#17346#17556#1" />
+                <element signature="e#17574#17918#1" />
+                <element signature="e#17674#17904#1" />
+                <element signature="e#17951#17995#0" />
+                <element signature="e#18101#18502#0" />
+                <element signature="e#18119#18222#0" />
+                <element signature="e#18245#18297#0" />
+                <element signature="e#18314#18417#0" />
+                <element signature="e#18440#18492#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="155" selection-start-line="155" selection-end-line="155" />
+            <state relative-caret-position="722">
+              <caret line="47" column="43" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
+              <folding>
+                <element signature="docComment;class#Main#0" />
+                <element signature="docComment;method#main#0;class#Main#0" />
+                <element signature="method#main#0;class#Main#0" />
+                <element signature="e#2915#2986#1" />
+                <element signature="e#3169#8345#1" />
+                <element signature="e#3243#3529#1" />
+                <element signature="e#3392#3515#1" />
+                <element signature="e#3535#3794#1" />
+                <element signature="e#3654#3780#1" />
+                <element signature="e#3853#4281#1" />
+                <element signature="e#4324#8335#1" />
+                <element signature="e#4396#5584#1" />
+                <element signature="e#5659#6015#1" />
+                <element signature="e#6060#7217#1" />
+                <element signature="e#6142#6667#1" />
+                <element signature="e#6757#7199#1" />
+                <element signature="e#7298#7768#1" />
+                <element signature="e#7851#8321#1" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,9 +362,9 @@
         <option value="$PROJECT_DIR$/src/Province.java" />
         <option value="$PROJECT_DIR$/src/Polygon1.java" />
         <option value="$PROJECT_DIR$/src/Polygon2.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/GE.java" />
         <option value="$PROJECT_DIR$/src/Plot.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
@@ -124,7 +379,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -137,17 +391,22 @@
               <item name="GE" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="GE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553969954197" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554013185345" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GE_bak" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -207,11 +466,13 @@
       <workItem from="1553745428325" duration="9599000" />
       <workItem from="1553956453477" duration="816000" />
       <workItem from="1553957287519" duration="12716000" />
+      <workItem from="1553970520231" duration="96000" />
+      <workItem from="1554007547037" duration="4731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140686000" />
+    <option name="totallyTimeSpent" value="145513000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -225,7 +486,7 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1953514" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19977863" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -233,7 +494,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32937366" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.24190065" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -242,7 +503,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32829374" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32721382" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -355,13 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="155" selection-start-line="155" selection-end-line="155" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/String.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -373,17 +627,301 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-802">
-          <caret line="260" column="14" lean-forward="true" selection-start-line="260" selection-start-column="14" selection-end-line="260" selection-end-column="14" />
-        </state>
+    <entry file="file://$PROJECT_DIR$/CN-block.dat">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/china.kml">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="-1653" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Plot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="810" column="12" lean-forward="true" selection-start-line="810" selection-start-column="12" selection-end-line="810" selection-end-column="12" />
+        <state relative-caret-position="-70">
+          <caret line="189" column="137" selection-start-line="189" selection-start-column="137" selection-end-line="189" selection-end-column="137" />
+          <folding>
+            <element signature="docComment;method#getBoundary#0;class#Plot#0" />
+            <element signature="method#getBoundary#0;class#Plot#0" />
+            <element signature="e#993#5760#0" />
+            <element signature="e#1278#1657#1" />
+            <element signature="e#1337#1459#1" />
+            <element signature="e#1481#1643#1" />
+            <element signature="e#2063#5580#1" />
+            <element signature="e#2099#2383#1" />
+            <element signature="e#2405#5566#1" />
+            <element signature="e#2472#3948#1" />
+            <element signature="e#2650#3741#1" />
+            <element signature="e#2995#3338#1" />
+            <element signature="e#3075#3308#1" />
+            <element signature="e#3372#3715#1" />
+            <element signature="e#3452#3685#1" />
+            <element signature="e#4003#5548#1" />
+            <element signature="e#4146#5237#1" />
+            <element signature="e#4491#4834#1" />
+            <element signature="e#4571#4804#1" />
+            <element signature="e#4868#5211#1" />
+            <element signature="e#4948#5181#1" />
+            <element signature="e#5791#5835#0" />
+            <element signature="docComment;method#segment#0;class#Plot#0" />
+            <element signature="method#segment#0;class#Plot#0" />
+            <element signature="e#6144#7946#1" />
+            <element signature="e#6287#7936#1" />
+            <element signature="e#6484#7824#1" />
+            <element signature="e#6739#7806#1" />
+            <element signature="e#7006#7114#1" />
+            <element signature="e#7120#7784#1" />
+            <element signature="e#7688#7758#1" />
+            <element signature="e#7859#7922#1" />
+            <element signature="docComment;method#createNew#0;class#Plot#0" />
+            <element signature="method#createNew#0;class#Plot#0" />
+            <element signature="e#8427#9312#0" />
+            <element signature="e#8675#9234#1" />
+            <element signature="e#9335#9379#0" />
+            <element signature="e#9559#9635#1" />
+            <element signature="class#9701:11046" />
+            <element signature="method#MyThread#0;class#9701:11046" />
+            <element signature="method#run#0;class#9701:11046" />
+            <element signature="e#10131#10954#1" />
+            <element signature="e#10281#10768#1" />
+            <element signature="e#10794#10936#1" />
+            <element signature="e#11116#11193#1" />
+            <element signature="e#11206#11273#0" />
+            <element signature="e#11305#11349#0" />
+            <element signature="e#11395#16537#0" />
+            <element signature="e#12951#16377#1" />
+            <element signature="e#13263#15420#1" />
+            <element signature="e#13716#14349#1" />
+            <element signature="e#15025#15288#1" />
+            <element signature="e#15959#16202#1" />
+            <element signature="e#16560#16604#0" />
+            <element signature="docComment;method#oval#0;class#Plot#0" />
+            <element signature="method#oval#0;class#Plot#0" />
+            <element signature="e#17180#17409#1" />
+            <element signature="e#18505#19207#1" />
+            <element signature="e#18631#18853#1" />
+            <element signature="e#18859#19081#1" />
+            <element signature="e#19259#19962#1" />
+            <element signature="e#19386#19608#1" />
+            <element signature="e#19614#19836#1" />
+            <element signature="e#20014#20718#1" />
+            <element signature="e#20142#20364#1" />
+            <element signature="e#20370#20592#1" />
+            <element signature="e#20771#21474#1" />
+            <element signature="e#20898#21120#1" />
+            <element signature="e#21126#21348#1" />
+            <element signature="docComment;method#write#0;class#Plot#0" />
+            <element signature="method#write#0;class#Plot#0" />
+            <element signature="e#23369#23894#1" />
+            <element signature="e#23396#23766#1" />
+            <element signature="e#23522#23634#1" />
+            <element signature="e#23640#23752#1" />
+            <element signature="e#23772#23884#1" />
+            <element signature="e#23909#26554#0" />
+            <element signature="e#26577#26621#0" />
+            <element signature="docComment;method#addOnNew#0;class#Plot#0" />
+            <element signature="method#addOnNew#0;class#Plot#0" />
+            <element signature="e#26969#28252#1" />
+            <element signature="e#27215#28167#0" />
+            <element signature="e#27571#27944#1" />
+            <element signature="e#27663#27844#1" />
+            <element signature="e#28190#28242#0" />
+            <element signature="docComment;method#addOnOld#0;class#Plot#0" />
+            <element signature="method#addOnOld#0;class#Plot#0" />
+            <element signature="e#28619#28683#1" />
+            <element signature="docComment;method#delete#0;class#Plot#0" />
+            <element signature="method#delete#0;class#Plot#0" />
+            <element signature="e#29048#30763#0" />
+            <element signature="e#29248#29299#1" />
+            <element signature="e#29498#30454#1" />
+            <element signature="e#29630#29768#1" />
+            <element signature="e#29810#30145#1" />
+            <element signature="e#29929#30088#1" />
+            <element signature="e#29983#30066#1" />
+            <element signature="e#30167#30363#1" />
+            <element signature="e#30369#30440#1" />
+            <element signature="e#30555#30753#1" />
+            <element signature="e#30655#30739#1" />
+            <element signature="e#30786#30830#0" />
+            <element signature="e#30839#31014#0" />
+            <element signature="e#30916#30953#0" />
+            <element signature="e#30952#31004#0" />
+            <element signature="e#31140#31244#0" />
+            <element signature="e#31267#31319#0" />
+            <element signature="docComment;method#highLight#0;class#Plot#0" />
+            <element signature="method#highLight#0;class#Plot#0" />
+            <element signature="e#32000#34981#0" />
+            <element signature="e#32469#34240#1" />
+            <element signature="e#32565#34050#1" />
+            <element signature="e#32685#34032#1" />
+            <element signature="e#32928#33895#1" />
+            <element signature="e#32975#33422#1" />
+            <element signature="e#33428#33869#1" />
+            <element signature="e#33925#34010#1" />
+            <element signature="e#34056#34226#1" />
+            <element signature="e#34264#34474#1" />
+            <element signature="e#34492#34835#1" />
+            <element signature="e#34591#34821#1" />
+            <element signature="e#35004#35048#0" />
+            <element signature="e#34993#35395#0" />
+            <element signature="e#35011#35115#0" />
+            <element signature="e#35138#35190#0" />
+            <element signature="e#35207#35310#0" />
+            <element signature="e#35333#35385#0" />
+            <element signature="docComment;method#changeColor#0;class#Plot#0" />
+            <element signature="method#changeColor#0;class#Plot#0" />
+            <element signature="e#35273#35369#1" />
+            <element signature="e#35576#37449#0" />
+            <element signature="e#36021#36850#1" />
+            <element signature="e#36105#36759#1" />
+            <element signature="e#36227#36714#1" />
+            <element signature="e#36330#36599#1" />
+            <element signature="e#36605#36692#1" />
+            <element signature="e#36765#36836#1" />
+            <element signature="e#36931#36994#1" />
+            <element signature="e#37237#37439#1" />
+            <element signature="e#37337#37425#1" />
+            <element signature="e#37472#37516#0" />
+            <element signature="e#37973#38374#0" />
+            <element signature="e#37991#38094#0" />
+            <element signature="e#38117#38169#0" />
+            <element signature="e#38186#38289#0" />
+            <element signature="e#38312#38364#0" />
+            <element signature="docComment;method#changeLabel#0;class#Plot#0" />
+            <element signature="method#changeLabel#0;class#Plot#0" />
+            <element signature="e#37741#38085#1" />
+            <element signature="e#37928#38075#1" />
+            <element signature="e#38420#40428#0" />
+            <element signature="e#38889#39975#1" />
+            <element signature="e#38985#39785#1" />
+            <element signature="e#39105#39767#1" />
+            <element signature="e#39208#39630#1" />
+            <element signature="e#39660#39745#1" />
+            <element signature="e#39791#39961#1" />
+            <element signature="e#40081#40282#1" />
+            <element signature="e#40180#40268#1" />
+            <element signature="e#40451#40495#0" />
+            <element signature="e#41235#41636#0" />
+            <element signature="e#41253#41356#0" />
+            <element signature="e#41379#41431#0" />
+            <element signature="e#41448#41551#0" />
+            <element signature="e#41574#41626#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="127" column="137" selection-start-line="127" selection-start-column="137" selection-end-line="127" selection-end-column="137" />
+          <folding>
+            <element signature="docComment;method#getBoundary#0;class#GE#0" />
+            <element signature="method#getBoundary#0;class#GE#0" />
+            <element signature="e#967#2401#0" />
+            <element signature="e#1163#2355#1" />
+            <element signature="e#1193#1428#1" />
+            <element signature="e#1285#1410#1" />
+            <element signature="e#1434#2341#1" />
+            <element signature="e#1532#2117#1" />
+            <element signature="e#1737#1932#1" />
+            <element signature="e#2151#2323#1" />
+            <element signature="e#2424#2468#0" />
+            <element signature="docComment;method#segment#0;class#GE#0" />
+            <element signature="method#segment#0;class#GE#0" />
+            <element signature="e#2711#4471#1" />
+            <element signature="e#2844#4461#1" />
+            <element signature="e#3011#4363#1" />
+            <element signature="e#3272#4345#1" />
+            <element signature="e#3545#3653#1" />
+            <element signature="e#3659#4323#1" />
+            <element signature="e#4227#4297#1" />
+            <element signature="e#4398#4447#1" />
+            <element signature="docComment;method#createNew#0;class#GE#0" />
+            <element signature="method#createNew#0;class#GE#0" />
+            <element signature="e#4926#10677#0" />
+            <element signature="e#5309#5868#1" />
+            <element signature="e#6103#6187#1" />
+            <element signature="class#6265:7481" />
+            <element signature="method#MyThread#0;class#6265:7481" />
+            <element signature="method#run#0;class#6265:7481" />
+            <element signature="e#6727#7373#1" />
+            <element signature="e#6859#7351#1" />
+            <element signature="e#7560#7645#1" />
+            <element signature="e#7662#7741#0" />
+            <element signature="e#7773#7825#0" />
+            <element signature="e#8905#10034#1" />
+            <element signature="e#8962#10020#1" />
+            <element signature="e#9212#9941#1" />
+            <element signature="e#10270#10488#1" />
+            <element signature="e#10361#10474#1" />
+            <element signature="e#10700#10744#0" />
+            <element signature="e#10776#11177#0" />
+            <element signature="e#10794#10897#0" />
+            <element signature="e#10920#10972#0" />
+            <element signature="e#10989#11092#0" />
+            <element signature="e#11115#11167#0" />
+            <element signature="docComment;method#addOnNew#0;class#GE#0" />
+            <element signature="method#addOnNew#0;class#GE#0" />
+            <element signature="e#11142#13394#1" />
+            <element signature="e#11539#13309#0" />
+            <element signature="e#11895#13086#1" />
+            <element signature="e#11987#12215#1" />
+            <element signature="e#12221#13038#1" />
+            <element signature="e#12419#12927#1" />
+            <element signature="e#13332#13384#0" />
+            <element signature="docComment;method#highLight#0;class#GE#0" />
+            <element signature="method#highLight#0;class#GE#0" />
+            <element signature="e#13955#17928#0" />
+            <element signature="e#14400#15005#1" />
+            <element signature="e#14645#14902#1" />
+            <element signature="e#14945#14991#1" />
+            <element signature="e#15447#17186#1" />
+            <element signature="e#15479#17099#1" />
+            <element signature="e#15624#15903#1" />
+            <element signature="e#15673#15756#1" />
+            <element signature="e#15929#16908#1" />
+            <element signature="e#16048#16548#1" />
+            <element signature="e#16099#16292#1" />
+            <element signature="e#16298#16522#1" />
+            <element signature="e#16578#16743#1" />
+            <element signature="e#16929#16996#1" />
+            <element signature="e#17002#17081#1" />
+            <element signature="e#17346#17556#1" />
+            <element signature="e#17574#17918#1" />
+            <element signature="e#17674#17904#1" />
+            <element signature="e#17951#17995#0" />
+            <element signature="e#18101#18502#0" />
+            <element signature="e#18119#18222#0" />
+            <element signature="e#18245#18297#0" />
+            <element signature="e#18314#18417#0" />
+            <element signature="e#18440#18492#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="47" column="43" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
+          <folding>
+            <element signature="docComment;class#Main#0" />
+            <element signature="docComment;method#main#0;class#Main#0" />
+            <element signature="method#main#0;class#Main#0" />
+            <element signature="e#2915#2986#1" />
+            <element signature="e#3169#8345#1" />
+            <element signature="e#3243#3529#1" />
+            <element signature="e#3392#3515#1" />
+            <element signature="e#3535#3794#1" />
+            <element signature="e#3654#3780#1" />
+            <element signature="e#3853#4281#1" />
+            <element signature="e#4324#8335#1" />
+            <element signature="e#4396#5584#1" />
+            <element signature="e#5659#6015#1" />
+            <element signature="e#6060#7217#1" />
+            <element signature="e#6142#6667#1" />
+            <element signature="e#6757#7199#1" />
+            <element signature="e#7298#7768#1" />
+            <element signature="e#7851#8321#1" />
+          </folding>
         </state>
       </provider>
     </entry>
