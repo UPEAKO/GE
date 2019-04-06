@@ -1,5 +1,7 @@
+import org.ujmp.core.DenseMatrix;
+import org.ujmp.core.Matrix;
+
 import java.io.*;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
@@ -240,7 +242,7 @@ class Plot {
                                 tempInfos.get(i).ID));
                     }
                     else {
-                        System.out.println("Classification error : " + tempInfos.get(i).L + "," + tempInfos.get(i).B);
+                        //System.out.println("Classification error : " + tempInfos.get(i).L + "," + tempInfos.get(i).B);
                     }
                 }
                 //主线程等待
@@ -260,23 +262,23 @@ class Plot {
         ///一级及相应的二级边界放在同一个folder
         File file = new File(newFile);
         try (FileWriter fileWriter = new FileWriter(file);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);){
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)){
             //kml头部
             bufferedWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n" +
                     "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +
                     "<Document id=\"root_doc\">\n" +
-                    "\t\t<Folder id=\"label\">\n" +
-                    "\t\t\t<name>LABEL</name>\n" +
-                    "\t\t\t<ScreenOverlay id=\"label\">\n" +
-                    "\t\t\t\t<name>label</name>\n" +
-                    "\t\t\t\t<Icon>\n" +
-                    "\t\t\t\t\t<href>http://www.cug.edu.cn/images/logo.png</href>\n" +
-                    "\t\t\t\t</Icon>\n" +
-                    "\t\t\t\t<overlayXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<screenXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                    "\t\t\t\t<size x=\"370\" y=\"74\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
-                    "\t\t\t</ScreenOverlay>\n" +
-                    "\t\t</Folder>\n");
+                    "\t<Folder id=\"label\">\n" +
+                    "\t\t<name>LABEL</name>\n" +
+                    "\t\t<ScreenOverlay id=\"label\">\n" +
+                    "\t\t\t<name>label</name>\n" +
+                    "\t\t\t<Icon>\n" +
+                    "\t\t\t\t<href>http://www.cug.edu.cn/images/logo.png</href>\n" +
+                    "\t\t\t</Icon>\n" +
+                    "\t\t\t<overlayXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t<screenXY x=\"0.0\" y=\"1.0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                    "\t\t\t<size x=\"370\" y=\"74\" xunits=\"pixels\" yunits=\"pixels\"/>\n" +
+                    "\t\t</ScreenOverlay>\n" +
+                    "\t</Folder>\n");
             //一二级地块边界
             ArrayList<Point> tempBoundary;
             //二级地块内的点
@@ -302,6 +304,13 @@ class Plot {
                     "\t\t\t</Polygon>\n" +
                     "\t\t</Placemark>\n";
 
+
+            //欧拉向量计算
+            ArrayList<Double> infoForMatrix = new ArrayList<>();
+            double allL,allB;
+            int allNum;
+            final double R = 6.371004;//6371.004
+
             for (int i = 0,len1 = plots.size(); i < len1; i++) {
                 bufferedWriter.write("\t<Folder>\n" +
                         "\t\t<name>");
@@ -326,6 +335,17 @@ class Plot {
                         double sigVen = tempPoints.get(k).sigVen;
                         String ID = tempPoints.get(k).ID;
                         write(L1,B1,Ve,Vn,sigVe,sigVn,sigVen,ID,bufferedWriter,changeColor,color,changeLabel,isInner,labelUrl);
+
+                        //欧拉向量计算
+                        infoForMatrix.add(Ve);
+                        infoForMatrix.add(-R * Math.cos(L1 * Math.PI / 180) * Math.sin(B1 * Math.PI / 180));
+                        infoForMatrix.add(-R * Math.sin(L1 * Math.PI / 180) * Math.sin(B1 * Math.PI / 180));
+                        infoForMatrix.add(-R * Math.cos(B1 * Math.PI / 180));
+                        infoForMatrix.add(Vn);
+                        infoForMatrix.add(R * Math.sin(L1 * Math.PI / 180));
+                        infoForMatrix.add(-R * Math.cos(L1 * Math.PI / 180));
+                        infoForMatrix.add(0.0);
+
                     }
                     bufferedWriter.write("\t\t</Folder>\n");
                     //每个二级地块
@@ -337,14 +357,61 @@ class Plot {
                             "\t\t\t<Style id=\"polygon2\">\n");
                     bufferedWriter.write(s1);
                     StringBuilder stringBuilder = new StringBuilder();
+
+                    //欧拉向量计算
+                    allL = 0;
+                    allB = 0;
+                    allNum = 0;
+
                     for (int k = 0,len4 = tempBoundary.size(); k < len4; k++) {
                         stringBuilder.append(tempBoundary.get(k).x);
                         stringBuilder.append(',');
                         stringBuilder.append(tempBoundary.get(k).y);
                         stringBuilder.append(' ');
+
+                        //欧拉向量计算
+                        allL += tempBoundary.get(k).x;
+                        allB += tempBoundary.get(k).y;
+                        allNum++;
+
                     }
                     bufferedWriter.write(stringBuilder.toString());
                     bufferedWriter.write(s2);
+
+                    //欧拉向量计算
+                    int rows = infoForMatrix.size() / 4;
+                    DenseMatrix B = DenseMatrix.Factory.zeros(rows,3);
+                    DenseMatrix L = DenseMatrix.Factory.zeros(rows,1);
+                    for (int k = 1; k <= rows; k++) {
+                        L.setAsDouble(infoForMatrix.get(4 * k - 4),k - 1,0);
+                        B.setAsDouble(infoForMatrix.get(4 * k - 3),k - 1,0);
+                        B.setAsDouble(infoForMatrix.get(4 * k - 2),k - 1,1);
+                        B.setAsDouble(infoForMatrix.get(4 * k - 1),k - 1,2);
+                    }
+                    Matrix x = (B.transpose().mtimes(B)).inv().mtimes(B.transpose()).mtimes(L);
+                    DenseMatrix B1 = DenseMatrix.Factory.zeros(2,3);
+                    double centerL = allL / allNum;
+                    double centerB = allB / allNum;
+                    B1.setAsDouble(-R * Math.cos(centerL * Math.PI / 180) * Math.sin(centerB * Math.PI / 180),0,0);
+                    B1.setAsDouble(-R * Math.sin(centerL * Math.PI / 180) * Math.sin(centerB * Math.PI / 180),0,1);
+                    B1.setAsDouble(-R * Math.cos(centerB * Math.PI / 180),0,2);
+                    B1.setAsDouble(R * Math.sin(centerL * Math.PI / 180),1,0);
+                    B1.setAsDouble(-R * Math.cos(centerL * Math.PI / 180),1,1);
+                    B1.setAsDouble(0.0,1,2);
+                    Matrix v = B1.mtimes(x);
+                    infoForMatrix.clear();
+                    writeCenter(centerL,
+                            centerB,
+                            v.getAsDouble(0,0),
+                            v.getAsDouble(1,0),
+                            plots.get(i).polygon2s.get(j).name,
+                            bufferedWriter,
+                            true,
+                            "ff00ff00",
+                            false,
+                            true,
+                            "");
+
                 }
                 //一级边界
                 bufferedWriter.write("\t\t<Placemark>\n" +
@@ -598,6 +665,105 @@ class Plot {
             //误差椭圆
             bufferedWriter.write(oval(L2,B2,sigVe,sigVn,sigVen,signNum,basecolor));
             bufferedWriter.write("\t\t\t</Folder>\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     *draw arrow for block2
+     */
+    private void writeCenter(double L1, double B1, double Ve, double Vn,String ID, BufferedWriter bufferedWriter,
+                     boolean changeColor,String color,boolean changeLabel,boolean isInner,String labelUrl) {
+        //另一端点处经度度增加值 1:100万 1度->111km
+        double signNum = (1000 * Math.PI) / (111 * 180);
+        //另一端点处 L B
+        double L2 = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180);
+        double B2 = B1 + Vn * signNum;
+        //所需两点的基点（过渡点）
+        double multi = 0.75;
+        double tempL = L1 + Ve * signNum / Math.cos(B1 * Math.PI / 180) * multi;
+        double tempB = B1 + Vn * signNum * multi;
+        //所需两点
+        double multi1 = 0.25;
+        double arrowL1 = tempL + signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
+        double arrowB1 = tempB - signNum * Ve * multi1;
+        double arrowL2 = tempL - signNum * Vn * multi1 / Math.cos(tempB * Math.PI / 180);
+        double arrowB2 = tempB + signNum * Ve * multi1;
+
+        //颜色与label预处理
+        String basecolor = "\t\t\t\t\t\t\t<color>ff0000ff</color>\n";
+        String baseurl = "\t\t\t\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+        if (changeColor)
+            basecolor = basecolor.replaceAll("<color>\\w{6,8}</color>","<color>" + color + "</color>");
+        if (changeLabel) {
+            if (isInner) {
+                int location = Integer.valueOf(labelUrl);
+                if (location > innerLables.length | location < 1) {
+                    System.out.println("No such icon!");
+                    System.exit(1);
+                } else {
+                    baseurl = baseurl.replaceAll("<href>.+</href>",innerLables[location-1]);
+                }
+            } else {
+                baseurl = baseurl.replaceAll("<href>.+</href>","<href>" + labelUrl + "</href>");
+            }
+        }
+
+
+        try {
+            bufferedWriter.write("\t\t<Folder id=\"arrow2\">\n" +
+                    "\t\t\t<name>" + ID + "_arrow2</name>\n");
+            //起点图标
+            bufferedWriter.write("\t\t\t<Placemark>\n" +
+                    "\t\t\t\t<Point>\n" +
+                    "\t\t\t\t\t<coordinates>\n");
+            bufferedWriter.write("\t\t\t\t\t" + L1 + "," + B1 +"\n");
+            bufferedWriter.write("\t\t\t\t\t</coordinates>\n" +
+                    "\t\t\t\t</Point>\n" +
+                    "\t\t\t\t<Style id=\"point\">\n" +
+                    "\t\t\t\t\t<IconStyle>\n" +
+                    "\t\t\t\t\t\t<Icon>\n" +
+                    baseurl +
+                    "\t\t\t\t\t\t</Icon>\n" +
+                    "\t\t\t\t\t</IconStyle>\n" +
+                    "\t\t\t\t</Style>\n" +
+                    "\t\t\t</Placemark>\n");
+            //线段
+            bufferedWriter.write("\t\t\t<Placemark>\n" +
+                    "\t\t\t\t<Style id=\"arrow\">\n" +
+                    "\t\t\t\t\t<LineStyle>\n" +
+                    basecolor +
+                    "\t\t\t\t\t\t<width>3.5</width>\n" +
+                    "\t\t\t\t\t</LineStyle>\n" +
+                    "\t\t\t\t</Style>\n"  +
+                    "\t\t\t\t<LinearRing>\n" +
+                    "\t\t\t\t\t<coordinates>\n");
+            String line = "\t\t\t\t\t\t" + L1 + "," + B1 + " " +
+                    L2 + "," + B2 + "\n";
+            bufferedWriter.write(line);
+            bufferedWriter.write("\t\t\t\t\t</coordinates>\n" +
+                    "\t\t\t\t</LinearRing>\n" +
+                    "\t\t\t</Placemark>\n" +
+                    "\t\t\t<Placemark>\n" +
+                    "\t\t\t\t<Style id=\"arrow\">\n" +
+                    "\t\t\t\t\t<LineStyle>\n" +
+                    basecolor +
+                    "\t\t\t\t\t\t<width>3.5</width>\n" +
+                    "\t\t\t\t\t</LineStyle>\n" +
+                    "\t\t\t\t</Style>\n"  +
+                    "\t\t\t\t<LinearRing>\n" +
+                    "\t\t\t\t\t<coordinates>\n");
+            //箭头
+            String arrow = "\t\t\t\t\t\t" + arrowL1 + "," + arrowB1 + " " +
+                    L2 + "," + B2 + " " +
+                    arrowL2 + "," + arrowB2 + "\n";
+            bufferedWriter.write(arrow);
+            bufferedWriter.write("\t\t\t\t\t</coordinates>\n" +
+                    "\t\t\t\t</LinearRing>\n" +
+                    "\t\t\t</Placemark>\n");
+            bufferedWriter.write("\t\t</Folder>\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

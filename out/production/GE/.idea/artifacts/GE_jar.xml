@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GE:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GE_jar</output-path>
+    <root id="archive" name="GE.jar">
+      <element id="module-output" name="GE" />
+      <element id="extracted-dir" path="$USER_HOME$/work/GE/jcommander-1.72.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/work/GE/ujmp.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
